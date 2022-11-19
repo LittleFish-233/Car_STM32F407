@@ -35,33 +35,33 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/adc.h ../Core/Inc/main.h ../Core/Inc/dma.h \
  ../FATFS/App/fatfs.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/integer.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/integer.h \
  ../FATFS/Target/ffconf.h ../FATFS/Target/bsp_driver_sd.h \
  ../FATFS/Target/fatfs_platform.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/diskio.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/diskio.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h \
  ../FATFS/Target/sd_diskio.h ../FATFS/Target/user_diskio.h \
  ../Core/Inc/sdio.h ../Core/Inc/spi.h ../Core/Inc/tim.h \
  ../Core/Inc/usart.h ../Core/Inc/gpio.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/LED/led.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/screen.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/lcd.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/font.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/bmp.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/lcd.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/image.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Car/control.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Car/common.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/UART/bsp_uart.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/tool.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/oled.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/font.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/dormancy.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/debug.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Flash/W25Qxx.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/FATFS/bsp_fatfs.h
+ G:/Code/Car_F407/Car_F407/User/LED/led.h \
+ G:/Code/Car_F407/Car_F407/User/Screen/screen.h \
+ G:/Code/Car_F407/Car_F407/User/Screen/lcd.h \
+ G:/Code/Car_F407/Car_F407/User/Screen/font.h \
+ G:/Code/Car_F407/Car_F407/User/Screen/bmp.h \
+ G:/Code/Car_F407/Car_F407/User/Screen/lcd.h \
+ G:/Code/Car_F407/Car_F407/User/Screen/image.h \
+ G:/Code/Car_F407/Car_F407/User/Car/control.h \
+ G:/Code/Car_F407/Car_F407/User/Car/common.h \
+ G:/Code/Car_F407/Car_F407/User/UART/bsp_uart.h \
+ G:/Code/Car_F407/Car_F407/User/BasicInfor/tool.h \
+ G:/Code/Car_F407/Car_F407/User/Screen/oled.h \
+ G:/Code/Car_F407/Car_F407/User/Screen/font.h \
+ G:/Code/Car_F407/Car_F407/User/BasicInfor/dormancy.h \
+ G:/Code/Car_F407/Car_F407/User/BasicInfor/debug.h \
+ G:/Code/Car_F407/Car_F407/User/Flash/W25Qxx.h \
+ G:/Code/Car_F407/Car_F407/User/FATFS/bsp_fatfs.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -101,14 +101,14 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/main.h:
 ../Core/Inc/dma.h:
 ../FATFS/App/fatfs.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/integer.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/integer.h:
 ../FATFS/Target/ffconf.h:
 ../FATFS/Target/bsp_driver_sd.h:
 ../FATFS/Target/fatfs_platform.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/diskio.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/diskio.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
 ../FATFS/Target/sd_diskio.h:
 ../FATFS/Target/user_diskio.h:
 ../Core/Inc/sdio.h:
@@ -116,20 +116,20 @@ C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/
 ../Core/Inc/tim.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/gpio.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/LED/led.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/screen.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/lcd.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/font.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/bmp.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/lcd.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/image.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Car/control.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Car/common.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/UART/bsp_uart.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/tool.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/oled.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/font.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/dormancy.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/debug.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Flash/W25Qxx.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/FATFS/bsp_fatfs.h:
+G:/Code/Car_F407/Car_F407/User/LED/led.h:
+G:/Code/Car_F407/Car_F407/User/Screen/screen.h:
+G:/Code/Car_F407/Car_F407/User/Screen/lcd.h:
+G:/Code/Car_F407/Car_F407/User/Screen/font.h:
+G:/Code/Car_F407/Car_F407/User/Screen/bmp.h:
+G:/Code/Car_F407/Car_F407/User/Screen/lcd.h:
+G:/Code/Car_F407/Car_F407/User/Screen/image.h:
+G:/Code/Car_F407/Car_F407/User/Car/control.h:
+G:/Code/Car_F407/Car_F407/User/Car/common.h:
+G:/Code/Car_F407/Car_F407/User/UART/bsp_uart.h:
+G:/Code/Car_F407/Car_F407/User/BasicInfor/tool.h:
+G:/Code/Car_F407/Car_F407/User/Screen/oled.h:
+G:/Code/Car_F407/Car_F407/User/Screen/font.h:
+G:/Code/Car_F407/Car_F407/User/BasicInfor/dormancy.h:
+G:/Code/Car_F407/Car_F407/User/BasicInfor/debug.h:
+G:/Code/Car_F407/Car_F407/User/Flash/W25Qxx.h:
+G:/Code/Car_F407/Car_F407/User/FATFS/bsp_fatfs.h:

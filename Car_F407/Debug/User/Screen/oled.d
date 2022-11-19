@@ -1,6 +1,6 @@
 User/Screen/oled.o: ../User/Screen/oled.c \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/oled.h \
- ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+ G:/Code/Car_F407/Car_F407/User/Screen/oled.h ../Core/Inc/main.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -34,8 +34,8 @@ User/Screen/oled.o: ../User/Screen/oled.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/font.h
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/oled.h:
+ G:/Code/Car_F407/Car_F407/User/Screen/font.h
+G:/Code/Car_F407/Car_F407/User/Screen/oled.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -71,4 +71,4 @@ C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/oled.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/font.h:
+G:/Code/Car_F407/Car_F407/User/Screen/font.h:

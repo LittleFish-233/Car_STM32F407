@@ -1,6 +1,6 @@
 User/BasicInfor/debug.o: ../User/BasicInfor/debug.c \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/debug.h \
- ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+ G:/Code/Car_F407/Car_F407/User/BasicInfor/debug.h ../Core/Inc/main.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -34,17 +34,17 @@ User/BasicInfor/debug.o: ../User/BasicInfor/debug.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/UART/bsp_uart.h \
- ../Core/Inc/usart.h ../Core/Inc/main.h ../FATFS/App/fatfs.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/integer.h \
+ G:/Code/Car_F407/Car_F407/User/UART/bsp_uart.h ../Core/Inc/usart.h \
+ ../Core/Inc/main.h ../FATFS/App/fatfs.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/integer.h \
  ../FATFS/Target/ffconf.h ../FATFS/Target/bsp_driver_sd.h \
  ../FATFS/Target/fatfs_platform.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/diskio.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/diskio.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h \
  ../FATFS/Target/sd_diskio.h ../FATFS/Target/user_diskio.h
-C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/debug.h:
+G:/Code/Car_F407/Car_F407/User/BasicInfor/debug.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -80,17 +80,17 @@ C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/debug.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/UART/bsp_uart.h:
+G:/Code/Car_F407/Car_F407/User/UART/bsp_uart.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/main.h:
 ../FATFS/App/fatfs.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/integer.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/integer.h:
 ../FATFS/Target/ffconf.h:
 ../FATFS/Target/bsp_driver_sd.h:
 ../FATFS/Target/fatfs_platform.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/diskio.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/diskio.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
 ../FATFS/Target/sd_diskio.h:
 ../FATFS/Target/user_diskio.h:

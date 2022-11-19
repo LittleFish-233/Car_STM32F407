@@ -35,21 +35,20 @@ User/Screen/screen.o: ../User/Screen/screen.c ../User/Screen/screen.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../User/Screen/lcd.h ../User/Screen/font.h ../Core/Inc/spi.h \
  ../Core/Inc/main.h ../User/Screen/image.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/debug.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/UART/bsp_uart.h \
- ../Core/Inc/usart.h ../FATFS/App/fatfs.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/integer.h \
+ G:/Code/Car_F407/Car_F407/User/BasicInfor/debug.h \
+ G:/Code/Car_F407/Car_F407/User/UART/bsp_uart.h ../Core/Inc/usart.h \
+ ../FATFS/App/fatfs.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/integer.h \
  ../FATFS/Target/ffconf.h ../FATFS/Target/bsp_driver_sd.h \
  ../FATFS/Target/fatfs_platform.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/diskio.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/diskio.h \
+ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h \
  ../FATFS/Target/sd_diskio.h ../FATFS/Target/user_diskio.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/FATFS/bsp_fatfs.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Flash/W25QXX.h \
- ../User/Screen/bmp.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/delay.h
+ G:/Code/Car_F407/Car_F407/User/FATFS/bsp_fatfs.h \
+ G:/Code/Car_F407/Car_F407/User/Flash/W25QXX.h ../User/Screen/bmp.h \
+ G:/Code/Car_F407/Car_F407/User/BasicInfor/delay.h
 ../User/Screen/screen.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -91,21 +90,21 @@ User/Screen/screen.o: ../User/Screen/screen.c ../User/Screen/screen.h \
 ../Core/Inc/spi.h:
 ../Core/Inc/main.h:
 ../User/Screen/image.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/debug.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/UART/bsp_uart.h:
+G:/Code/Car_F407/Car_F407/User/BasicInfor/debug.h:
+G:/Code/Car_F407/Car_F407/User/UART/bsp_uart.h:
 ../Core/Inc/usart.h:
 ../FATFS/App/fatfs.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/integer.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/integer.h:
 ../FATFS/Target/ffconf.h:
 ../FATFS/Target/bsp_driver_sd.h:
 ../FATFS/Target/fatfs_platform.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/diskio.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/diskio.h:
+G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
 ../FATFS/Target/sd_diskio.h:
 ../FATFS/Target/user_diskio.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/FATFS/bsp_fatfs.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Flash/W25QXX.h:
+G:/Code/Car_F407/Car_F407/User/FATFS/bsp_fatfs.h:
+G:/Code/Car_F407/Car_F407/User/Flash/W25QXX.h:
 ../User/Screen/bmp.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/BasicInfor/delay.h:
+G:/Code/Car_F407/Car_F407/User/BasicInfor/delay.h:

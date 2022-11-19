@@ -72,8 +72,8 @@ all: main-build
 main-build: Car_F407.elf secondary-outputs
 
 # 工具调用
-Car_F407.elf Car_F407.map: $(OBJS) $(USER_OBJS) C:\Users\Little\ Fish\git\repository\Car_F407\STM32F407ZGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Car_F407.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Little Fish\git\repository\Car_F407\STM32F407ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Car_F407.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Car_F407.elf Car_F407.map: $(OBJS) $(USER_OBJS) G:\Code\Car_F407\Car_F407\STM32F407ZGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Car_F407.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"G:\Code\Car_F407\Car_F407\STM32F407ZGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Car_F407.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo '已结束构建目标： $@'
 	@echo ' '
 

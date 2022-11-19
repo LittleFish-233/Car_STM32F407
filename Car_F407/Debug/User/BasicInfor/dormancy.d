@@ -1,7 +1,7 @@
 User/BasicInfor/dormancy.o: ../User/BasicInfor/dormancy.c \
  ../User/BasicInfor/dormancy.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/screen.h \
- ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+ G:/Code/Car_F407/Car_F407/User/Screen/screen.h ../Core/Inc/main.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -35,12 +35,12 @@ User/BasicInfor/dormancy.o: ../User/BasicInfor/dormancy.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/lcd.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/font.h \
- ../Core/Inc/spi.h ../Core/Inc/main.h ../Core/Inc/tim.h \
- C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/image.h
+ G:/Code/Car_F407/Car_F407/User/Screen/lcd.h \
+ G:/Code/Car_F407/Car_F407/User/Screen/font.h ../Core/Inc/spi.h \
+ ../Core/Inc/main.h ../Core/Inc/tim.h \
+ G:/Code/Car_F407/Car_F407/User/Screen/image.h
 ../User/BasicInfor/dormancy.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/screen.h:
+G:/Code/Car_F407/Car_F407/User/Screen/screen.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -76,9 +76,9 @@ C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/screen.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/lcd.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/font.h:
+G:/Code/Car_F407/Car_F407/User/Screen/lcd.h:
+G:/Code/Car_F407/Car_F407/User/Screen/font.h:
 ../Core/Inc/spi.h:
 ../Core/Inc/main.h:
 ../Core/Inc/tim.h:
-C:/Users/Little\ Fish/git/repository/Car_F407/User/Screen/image.h:
+G:/Code/Car_F407/Car_F407/User/Screen/image.h:
