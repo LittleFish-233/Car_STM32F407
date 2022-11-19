@@ -1,0 +1,4 @@
+../User/UART/bsp_uart.c:25:6:Init_USART	16	static
+../User/UART/bsp_uart.c:34:6:HAL_UART_RxCpltCallback	12	static
+../User/UART/bsp_uart.c:70:6:CleanRxData	0	static
+../User/UART/bsp_uart.c:77:6:printf_Base	16	static

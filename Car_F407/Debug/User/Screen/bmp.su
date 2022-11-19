@@ -1,0 +1,2 @@
+../User/Screen/bmp.c:34:6:showBmpHead	16	static
+../User/Screen/bmp.c:45:6:showBmpInforHead	16	static

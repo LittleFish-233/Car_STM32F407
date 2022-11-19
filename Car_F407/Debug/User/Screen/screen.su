@@ -1,0 +1,7 @@
+../User/Screen/screen.c:35:6:Screen_ShowPicture	0	static
+../User/Screen/screen.c:44:6:Screen_ShowStringLine	0	static
+../User/Screen/screen.c:53:6:Screen_Clear	0	static
+../User/Screen/screen.c:94:6:Screen_Close	0	static
+../User/Screen/screen.c:123:6:Screen_ShowFileImage	104	static
+../User/Screen/screen.c:62:6:Screen_ShowPicture_Num	8	static
+../User/Screen/screen.c:21:6:Screen_Init	8	static

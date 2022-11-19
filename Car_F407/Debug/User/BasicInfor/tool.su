@@ -1,0 +1,3 @@
+../User/BasicInfor/tool.c:20:7:GetBatteryLevel	8	static
+../User/BasicInfor/tool.c:26:7:GetInternalTemperature	8	static
+../User/BasicInfor/tool.c:31:6:Test_W25QXX	64	static

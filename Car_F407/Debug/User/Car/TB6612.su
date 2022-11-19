@@ -1,0 +1,4 @@
+../User/Car/TB6612.c:23:6:Set_TB6612_State	8	static
+../User/Car/TB6612.c:45:6:SetMotorState	24	static
+../User/Car/TB6612.c:75:6:SetMotorSpeed	16	static
+../User/Car/TB6612.c:109:6:SetAllMotorSpeed	16	static

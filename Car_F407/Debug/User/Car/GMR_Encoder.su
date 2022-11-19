@@ -1,0 +1,2 @@
+../User/Car/GMR_Encoder.c:17:6:EnableAllMotorEncoders	16	static
+../User/Car/GMR_Encoder.c:27:6:UpdateAllMotorSpeed	40	static

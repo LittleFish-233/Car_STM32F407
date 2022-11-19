@@ -1,0 +1,9 @@
+../User/Car/control.c:36:6:InitCar	8	static
+../User/Car/control.c:77:6:Periodic_UpdateAndSet_Car_ExpectedSpeed	24	static
+../User/Car/control.c:88:9:Is_Car_Runing	0	static
+../User/Car/control.c:103:6:Periodic_Update_Car_ActualSpeed	8	static
+../User/Car/control.c:119:6:Set_Motor_ExpectedSpeed	0	static
+../User/Car/control.c:125:6:Transform_AxisSpeed	0	static
+../User/Car/control.c:134:6:AddCarSpeed	0	static
+../User/Car/control.c:45:6:CorrectCarDirection	8	static
+../User/Car/control.c:144:6:SetCarSpeed	0	static

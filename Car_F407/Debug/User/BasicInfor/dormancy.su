@@ -1,0 +1,4 @@
+../User/BasicInfor/dormancy.c:17:6:Clean_Dormancy_Count	8	static
+../User/BasicInfor/dormancy.c:27:6:PreHibernate	16	static
+../User/BasicInfor/dormancy.c:46:6:Hibernate	8	static
+../User/BasicInfor/dormancy.c:52:6:Periodic_Dormancy_Counter	8	static
