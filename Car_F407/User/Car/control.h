@@ -9,6 +9,7 @@
 #define CAR_CONTROL_H_
 
 #include "common.h"
+#include "infrared.h"
 
 extern float Motor_Actual_Speeds[4];
 extern float Motor_Expected_Speeds[4];

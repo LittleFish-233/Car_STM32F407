@@ -618,9 +618,10 @@ void LCD_InitX(const unsigned char BMP[])
 
 void LCD_Close()
 {
-	LCD_PWR(0);
-	LCD_RST(0);
+
 	LCD_Write_Cmd(0x53);
 	LCD_Write_Cmd(0x28);
 	LCD_Write_Cmd(0x10);
+	LCD_PWR(0);
+	LCD_RST(0);
 }

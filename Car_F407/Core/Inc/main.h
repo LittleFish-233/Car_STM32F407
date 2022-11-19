@@ -108,10 +108,10 @@ void Error_Handler(void);
 #define Infrared2_GPIO_Port GPIOB
 #define W25QXX_CS_Pin GPIO_PIN_14
 #define W25QXX_CS_GPIO_Port GPIOB
-#define Infrared4_Pin GPIO_PIN_15
-#define Infrared4_GPIO_Port GPIOB
 #define Infrared3_Pin GPIO_PIN_8
 #define Infrared3_GPIO_Port GPIOD
+#define Infrared4_Pin GPIO_PIN_9
+#define Infrared4_GPIO_Port GPIOD
 #define Motor_4_Encoder_A_Pin GPIO_PIN_12
 #define Motor_4_Encoder_A_GPIO_Port GPIOD
 #define Motor_4_Encoder_B_Pin GPIO_PIN_13

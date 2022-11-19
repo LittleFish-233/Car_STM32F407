@@ -25,6 +25,7 @@ void Screen_Init()
 #else
 	LCD_Init();
 #if defined SCREEN_USE_FATFS
+
 	Screen_ShowPicture_Num(0, 0);
 	HAL_Delay(2000);
 #endif

@@ -8,7 +8,7 @@
 #include "dormancy.h"
 #include "Screen/image.h"
 
-#define Dormancy_Count_Max 60*0.1
+#define Dormancy_Count_Max 60*1
 #define Dormancy_PreHibernate_Max 71*8
 
 //休眠计数 -1 进入预休眠模式

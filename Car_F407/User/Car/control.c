@@ -10,13 +10,16 @@
 #include "GMR_Encoder.h"
 #include "Speed_PID.h"
 #include "infrared.h"
-
+#include "math.h"
 //电机理论速度
 float Motor_Expected_Speeds[4];
 //三维速度向量 X Y Z
 float Motor_Expected_Axis_Speeds[3];
 //电机实际速度
 extern float Motor_Actual_Speeds[4];
+
+#define Motor_Expected_Speed_Max 80
+#define Motor_Expected_Speed_Min 5
 
 /*三维坐标
  *    x
@@ -44,8 +47,15 @@ void InitCar()
 //根据外设修正小车方向
 void CorrectCarDirection()
 {
+	//判断是否停止
+	if (Motor_Expected_Axis_Speeds[Axis_X] == 0 && Motor_Expected_Axis_Speeds[Axis_Z] == 0)
+	{
+		return;
+	}
+
 	DriveState hw = GetDriveState();
-	float k = 1.5;
+	//return;
+	float k = 0.15 + 0.001 * fabs(Motor_Expected_Axis_Speeds[Axis_X]);
 
 	//向另一方向转弯时清空转弯角
 	float z = 0.0;
@@ -54,10 +64,15 @@ void CorrectCarDirection()
 	{
 		case DriveState_Left:
 			z = -StepLength * k;
-			AddCarSpeed(0, 0, -StepLength * k);
 			break;
 		case DriveState_Right:
 			z = StepLength * k;
+			break;
+		case DriveState_Turn_Left:
+			z = StepLength * k * 2;
+			break;
+		case DriveState_Turn_Right:
+			z = - StepLength * k * 2;
 			break;
 		case DriveState_Normal:
 			Motor_Expected_Axis_Speeds[Axis_Z] = 0;
@@ -67,16 +82,15 @@ void CorrectCarDirection()
 
 	if (Motor_Expected_Axis_Speeds[Axis_Z] * z < 0)
 	{
-		Motor_Expected_Axis_Speeds[Axis_Z] = z;
+		Motor_Expected_Axis_Speeds[Axis_Z] = 0;
 	}
-
 	AddCarSpeed(0, 0, z);
 }
 
 //周期更新设置值并应用
 void Periodic_UpdateAndSet_Car_ExpectedSpeed()
 {
-	//CorrectCarDirection();
+	CorrectCarDirection();
 	//级联更新计算PID
 	for (int motor = 0; motor < Motor_Number; ++motor)
 	{
@@ -128,6 +142,33 @@ void Transform_AxisSpeed()
 	Motor_Expected_Speeds[0] = (Motor_Expected_Axis_Speeds[Axis_X] - Motor_Expected_Axis_Speeds[Axis_Z]);
 	Motor_Expected_Speeds[1] = (Motor_Expected_Axis_Speeds[Axis_X] + Motor_Expected_Axis_Speeds[Axis_Z]);
 	Motor_Expected_Speeds[3] = (Motor_Expected_Axis_Speeds[Axis_X] + Motor_Expected_Axis_Speeds[Axis_Z]);
+
+	//输出饱和
+	for (int var = 0; var < Motor_Number; ++var)
+	{
+		if (Motor_Expected_Speeds[var] < 0)
+		{
+			if (Motor_Expected_Speeds[var] < -Motor_Expected_Speed_Max)
+			{
+				Motor_Expected_Speeds[var] = -Motor_Expected_Speed_Max;
+			}
+			else if (Motor_Expected_Speeds[var] > -Motor_Expected_Speed_Min)
+			{
+				Motor_Expected_Speeds[var] = -Motor_Expected_Speed_Min;
+			}
+		}
+		else if (Motor_Expected_Speeds[var] > 0)
+		{
+			if (Motor_Expected_Speeds[var] > Motor_Expected_Speed_Max)
+			{
+				Motor_Expected_Speeds[var] = Motor_Expected_Speed_Max;
+			}
+			else if (Motor_Expected_Speeds[var] < Motor_Expected_Speed_Min)
+			{
+				Motor_Expected_Speeds[var] = Motor_Expected_Speed_Min;
+			}
+		}
+	}
 }
 
 //在当前速度的基础上添加 速度

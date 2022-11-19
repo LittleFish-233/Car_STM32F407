@@ -54,6 +54,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  G:/Code/Car_F407/Car_F407/User/Screen/image.h \
  G:/Code/Car_F407/Car_F407/User/Car/control.h \
  G:/Code/Car_F407/Car_F407/User/Car/common.h \
+ G:/Code/Car_F407/Car_F407/User/Car/infrared.h \
+ G:/Code/Car_F407/Car_F407/User/Car/TB6612.h \
  G:/Code/Car_F407/Car_F407/User/UART/bsp_uart.h \
  G:/Code/Car_F407/Car_F407/User/BasicInfor/tool.h \
  G:/Code/Car_F407/Car_F407/User/Screen/oled.h \
@@ -125,6 +127,8 @@ G:/Code/Car_F407/Car_F407/User/Screen/lcd.h:
 G:/Code/Car_F407/Car_F407/User/Screen/image.h:
 G:/Code/Car_F407/Car_F407/User/Car/control.h:
 G:/Code/Car_F407/Car_F407/User/Car/common.h:
+G:/Code/Car_F407/Car_F407/User/Car/infrared.h:
+G:/Code/Car_F407/Car_F407/User/Car/TB6612.h:
 G:/Code/Car_F407/Car_F407/User/UART/bsp_uart.h:
 G:/Code/Car_F407/Car_F407/User/BasicInfor/tool.h:
 G:/Code/Car_F407/Car_F407/User/Screen/oled.h:

@@ -13,12 +13,6 @@ uint8_t Infrared_Datas[Infrared_Number];
 GPIO_TypeDef *Infrared_GPIO_Ports[Infrared_Number] = { Infrared1_GPIO_Port, Infrared2_GPIO_Port, Infrared3_GPIO_Port, Infrared4_GPIO_Port };
 uint16_t Infrared_Pins[Infrared_Number] = { Infrared1_Pin, Infrared2_Pin, Infrared3_Pin, Infrared4_Pin };
 
-//红外传感器编号
-typedef enum
-{
-	Infrared_Left, Infrared_Center_Left, Infrared_Center_Right, Infrared_Right,
-} InfraredName;
-
 //获取红外数据
 void UpdateInfraredData()
 {
@@ -32,7 +26,7 @@ void UpdateInfraredData()
 DriveState GetDriveState()
 {
 	UpdateInfraredData();
-	
+
 	//判断
 	if (Infrared_Datas[Infrared_Left] && Infrared_Datas[Infrared_Right])
 	{

@@ -36,6 +36,7 @@
 #include "Screen/lcd.h"
 #include "Screen/image.h"
 #include "Car/control.h"
+#include "Car/TB6612.h"
 #include "UART/bsp_uart.h"
 #include <BasicInfor/tool.h>
 #include <Screen/oled.h>
@@ -159,7 +160,7 @@ int main(void)
 	//初始化小车控制系统
 	InitCar();
 	//测试
-	//Set_Motor_ExpectedSpeed(Motor_4, 20);
+	//SetMotorSpeed(Motor_3, 100);
 	//SetCarSpeed(10, 0, 0);
 
 	LED2_H();
@@ -244,8 +245,9 @@ void OLED_Proc()
 	sprintf(String_Line, "C:%5.1f   D:%5.1f", Motor_Expected_Speeds[2], Motor_Expected_Speeds[3]);
 	Screen_ShowStringLine(4, String_Line, Font_Size);
 
-	sprintf(String_Line, "     %c %c %c %c", Infrared_Datas[0] ? '#' : ' ', Infrared_Datas[1] ? '#' : ' ', Infrared_Datas[2] ? '#' : ' ', Infrared_Datas[3] ? '#' : ' ');
-	Screen_ShowStringLine(5, String_Line, Font_Size);
+	UpdateInfraredData();
+	sprintf(String_Line, "     %c %c %c %c", Infrared_Datas[Infrared_Right] ? '#' : ' ', Infrared_Datas[Infrared_Center_Right] ? '#' : ' ', Infrared_Datas[Infrared_Center_Left] ? '#' : ' ', Infrared_Datas[Infrared_Left] ? '#' : ' ');
+	Screen_ShowStringLine(6, String_Line, Font_Size);
 
 	sprintf(String_Line, "%.2f V    %.2f C    %d s", GetBatteryLevel(), GetInternalTemperature(), (int) uwTick / 1000);
 	Screen_ShowStringLine(14, String_Line, Font_Size_Small);
@@ -255,17 +257,18 @@ void OLED_Proc()
 //向上位机发送当前小车数据
 void SendData_Proc()
 {
-	if (uwTick - uwTick_SendData < 50)
+	if (uwTick - uwTick_SendData < 500)
 	{
 		return;
 	}
 	uwTick_SendData = uwTick;
 
 //发送数据
-	for (int var = 0; var < Motor_Number; ++var)
-	{
-		TX_String[var] = ((uint16_t) (int16_t) (Motor_Actual_Speeds[var] * 100));
-	}
+
+	TX_String[0] = ((uint16_t) (int16_t) (Motor_Expected_Speeds[0] * 100));
+	TX_String[1] = ((uint16_t) (int16_t) (Motor_Expected_Speeds[1] * 100));
+	TX_String[2] = ((uint16_t) (int16_t) (Motor_Expected_Axis_Speeds[0] * 100));
+	TX_String[3] = ((uint16_t) (int16_t) (Motor_Expected_Axis_Speeds[2] * 100));
 
 	HAL_UART_Transmit(&huart1, (uint8_t*) TX_String, Motor_Number * 2, 0xFFFF);
 }
@@ -290,27 +293,27 @@ void ProcessReceivedData()
 					case '1':	//上
 						AddCarSpeed(Speed_Step * 2, 0, 0);
 						break;
-					case '2':	//上左
+					case '2':	//右上
 						AddCarSpeed(Speed_Step, 0, -Direction_Step);
 						break;
 					case '3':	//右
-						AddCarSpeed(0, 0, Direction_Step * 2);
+						AddCarSpeed(0, 0, -Direction_Step * 2);
 						break;
 					case '4':	//右下
-						AddCarSpeed(-Speed_Step, 0, Direction_Step);
+						AddCarSpeed(-Speed_Step, 0, -Direction_Step);
 
 						break;
 					case '5':	//下
 						AddCarSpeed(-Speed_Step * 2, 0, 0);
 						break;
 					case '6':	//左下
-						AddCarSpeed(-Speed_Step, 0, -Direction_Step);
+						AddCarSpeed(-Speed_Step, 0, Direction_Step);
 						break;
 					case '7':	//左
-						AddCarSpeed(0, 0, -Direction_Step * 2);
+						AddCarSpeed(0, 0, Direction_Step * 2);
 						break;
 					case '8':	//左上
-						AddCarSpeed(Speed_Step, 0, -Direction_Step);
+						AddCarSpeed(Speed_Step, 0, Direction_Step);
 						break;
 					case '9':	//停止
 						SetCarSpeed(0, 0, 0);

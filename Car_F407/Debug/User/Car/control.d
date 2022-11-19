@@ -34,8 +34,8 @@ User/Car/control.o: ../User/Car/control.c ../User/Car/control.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../User/Car/TB6612.h ../Core/Inc/tim.h ../Core/Inc/main.h \
- ../User/Car/GMR_Encoder.h ../User/Car/Speed_PID.h ../User/Car/infrared.h
+ ../User/Car/infrared.h ../User/Car/TB6612.h ../Core/Inc/tim.h \
+ ../Core/Inc/main.h ../User/Car/GMR_Encoder.h ../User/Car/Speed_PID.h
 ../User/Car/control.h:
 ../User/Car/common.h:
 ../Core/Inc/main.h:
@@ -73,9 +73,9 @@ User/Car/control.o: ../User/Car/control.c ../User/Car/control.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../User/Car/infrared.h:
 ../User/Car/TB6612.h:
 ../Core/Inc/tim.h:
 ../Core/Inc/main.h:
 ../User/Car/GMR_Encoder.h:
 ../User/Car/Speed_PID.h:
-../User/Car/infrared.h:
