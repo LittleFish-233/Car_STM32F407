@@ -1848,7 +1848,7 @@ void SystemClock_Config(void)
  80012d0:	2100      	movs	r1, #0
  80012d2:	a803      	add	r0, sp, #12
  80012d4:	f006 fca6 	bl	8007c24 <memset>
-	
+
 	/** Configure the main internal regulator output voltage
 	 */
 	__HAL_RCC_PWR_CLK_ENABLE();
@@ -1869,7 +1869,7 @@ void SystemClock_Config(void)
  80012f6:	f441 4180 	orr.w	r1, r1, #16384	; 0x4000
  80012fa:	6011      	str	r1, [r2, #0]
  80012fc:	6812      	ldr	r2, [r2, #0]
-	
+
 	/** Initializes the RCC Oscillators according to the specified parameters
 	 * in the RCC_OscInitTypeDef structure.
 	 */
@@ -2126,13 +2126,13 @@ void Error_Handler(void)
  80014f0:	0800c575 	.word	0x0800c575
 
 080014f4 <SendData_Proc>:
-	if (uwTick - uwTick_SendData < 100)
+	if (uwTick - uwTick_SendData < 50)
  80014f4:	4911      	ldr	r1, [pc, #68]	; (800153c <SendData_Proc+0x48>)
  80014f6:	4a12      	ldr	r2, [pc, #72]	; (8001540 <SendData_Proc+0x4c>)
  80014f8:	680b      	ldr	r3, [r1, #0]
  80014fa:	6810      	ldr	r0, [r2, #0]
  80014fc:	1a1b      	subs	r3, r3, r0
- 80014fe:	2b63      	cmp	r3, #99	; 0x63
+ 80014fe:	2b31      	cmp	r3, #49	; 0x31
  8001500:	d91a      	bls.n	8001538 <SendData_Proc+0x44>
 	uwTick_SendData = uwTick;
  8001502:	680b      	ldr	r3, [r1, #0]
