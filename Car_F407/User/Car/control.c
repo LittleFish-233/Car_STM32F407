@@ -12,29 +12,21 @@
 #include "infrared.h"
 #include "math.h"
 //电机理论速度
-float Motor_Expected_Speeds[4];
+float Motor_Expected_Speeds[Motor_Number];
 //三维速度向量 X Y Z
 float Motor_Expected_Axis_Speeds[3];
 //电机实际速度
-extern float Motor_Actual_Speeds[4];
+extern float Motor_Actual_Speeds[Motor_Number];
 
 #define Motor_Expected_Speed_Max 80
 #define Motor_Expected_Speed_Min 5
 
-/*三维坐标
- *    x
- ^
- / |
- /	  |
- Z<	   -------->y*/
-
-typedef enum
-{
-	Axis_X, Axis_Y, Axis_Z
-} Axis;
-
 //转弯步进
 #define StepLength 2.5
+
+float Abnormal_Axis_Speed[3];
+
+Abnormal_Mode StateAbnormal_Mode;
 
 void InitCar()
 {
@@ -42,6 +34,14 @@ void InitCar()
 	InitMotorPID();
 	//使能小车速度监控
 	EnableAllMotorEncoders();
+}
+
+void SetAbnormalBehavior(Abnormal_Mode model, float x, float y, float z)
+{
+	StateAbnormal_Mode = model;
+	Abnormal_Axis_Speed[0] = x;
+	Abnormal_Axis_Speed[1] = y;
+	Abnormal_Axis_Speed[2] = z;
 }
 
 //根据外设修正小车方向
@@ -58,33 +58,60 @@ void CorrectCarDirection()
 	float k = 0.15 + 0.001 * fabs(Motor_Expected_Axis_Speeds[Axis_X]);
 
 	//向另一方向转弯时清空转弯角
+	float x = 0.0;
+	float y = 0.0;
 	float z = 0.0;
 
-	switch (hw)
+	if (StateAbnormal_Mode == Abnormal_Mode_None)
 	{
-		case DriveState_Left:
-			z = -StepLength * k;
-			break;
-		case DriveState_Right:
-			z = StepLength * k;
-			break;
-		case DriveState_Turn_Left:
-			z = StepLength * k * 2;
-			break;
-		case DriveState_Turn_Right:
-			z = - StepLength * k * 2;
-			break;
-		case DriveState_Normal:
-			Motor_Expected_Axis_Speeds[Axis_Z] = 0;
-		default:
-			break;
+		switch (hw)
+		{
+			case DriveState_Left:
+				z = -StepLength * k;
+				break;
+			case DriveState_Right:
+				z = StepLength * k;
+				break;
+			case DriveState_Sharp_Left:
+				z = StepLength * k * 2;
+				break;
+			case DriveState_Sharp_Right:
+				z = - StepLength * k * 2;
+				break;
+			case DriveState_Normal:
+				Motor_Expected_Axis_Speeds[Axis_Z] = 0;
+			default:
+				break;
+		}
 	}
+	else
+	{
+		//未定义行为 即
+		switch (StateAbnormal_Mode)
+		{
+			case Abnormal_Mode_Accumulate:
+				x = Abnormal_Axis_Speed[Axis_X];
+				y = Abnormal_Axis_Speed[Axis_Y];
+				z = Abnormal_Axis_Speed[Axis_Z];
+				break;
+			case Abnormal_Mode_Onetime:
+				x = Abnormal_Axis_Speed[Axis_X];
+				y = Abnormal_Axis_Speed[Axis_Y];
+				z = Abnormal_Axis_Speed[Axis_Z];
+				//清零
+				Abnormal_Axis_Speed[Axis_X] = Abnormal_Axis_Speed[Axis_Y] = Abnormal_Axis_Speed[Axis_Z] = 0;
+				break;
+			default:
+				break;
+		}
+	}
+//
+//	if (Motor_Expected_Axis_Speeds[Axis_Z] * z < 0)
+//	{
+//		Motor_Expected_Axis_Speeds[Axis_Z] = 0;
+//	}
 
-	if (Motor_Expected_Axis_Speeds[Axis_Z] * z < 0)
-	{
-		Motor_Expected_Axis_Speeds[Axis_Z] = 0;
-	}
-	AddCarSpeed(0, 0, z);
+	AddCarSpeed(x, y, z);
 }
 
 //周期更新设置值并应用

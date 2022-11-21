@@ -48,6 +48,7 @@
 "./User/BasicInfor/debug.o"
 "./User/BasicInfor/delay.o"
 "./User/BasicInfor/dormancy.o"
+"./User/BasicInfor/statusControl.o"
 "./User/BasicInfor/tool.o"
 "./User/Car/GMR_Encoder.o"
 "./User/Car/Speed_PID.o"

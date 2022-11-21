@@ -76,6 +76,6 @@ void CleanRxData(uint8_t index)
 
 void printf_Base(const char *TX_String)
 {
-	//HAL_UART_Transmit(UART_Handles[Printf_UART], (uint8_t*) TX_String, strlen(TX_String), 0xFFFF);
+	HAL_UART_Transmit(UART_Handles[Printf_UART], (uint8_t*) TX_String, strlen(TX_String), 0xFFFF);
 }
 

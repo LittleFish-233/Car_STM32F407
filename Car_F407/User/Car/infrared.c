@@ -28,17 +28,25 @@ DriveState GetDriveState()
 	UpdateInfraredData();
 
 	//判断
-	if (Infrared_Datas[Infrared_Left] && Infrared_Datas[Infrared_Right])
+	if (Infrared_Datas[Infrared_Left] && Infrared_Datas[Infrared_Right] && Infrared_Datas[Infrared_Center_Left] && Infrared_Datas[Infrared_Center_Right])
 	{
 		return DriveState_Intersection;
 	}
-	else if (Infrared_Datas[Infrared_Right])
+	else if (Infrared_Datas[Infrared_Right] && Infrared_Datas[Infrared_Center_Right])
 	{
 		return DriveState_Turn_Right;
 	}
-	else if (Infrared_Datas[Infrared_Left])
+	else if (Infrared_Datas[Infrared_Left] && Infrared_Datas[Infrared_Center_Left])
 	{
 		return DriveState_Turn_Left;
+	}
+	else if (Infrared_Datas[Infrared_Right])
+	{
+		return DriveState_Sharp_Right;
+	}
+	else if (Infrared_Datas[Infrared_Left])
+	{
+		return DriveState_Sharp_Left;
 	}
 	else if (Infrared_Datas[Infrared_Center_Left] == 0 && Infrared_Datas[Infrared_Center_Right] == 0)
 	{

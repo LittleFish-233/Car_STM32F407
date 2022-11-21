@@ -1,0 +1,2 @@
+../User/BasicInfor/statusControl.c:49:6:Status_Control_Clear	0	static
+../User/BasicInfor/statusControl.c:57:6:Periodic_Status_Control	24	static
