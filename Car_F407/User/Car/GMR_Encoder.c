@@ -9,7 +9,7 @@
 //电机速度 -100 ~ 100
 float Motor_Actual_Speeds[4];
 //电机最大速度时编码器单位时间脉冲数
-float Motor_Encoder_Max_Counts[4] = { 68, 68, 68, 68 };
+float Motor_Encoder_Max_Counts[4] = { 685, 685, 685, 685 };
 
 TIM_HandleTypeDef *Motor_Encoders[4] = { &htim1, &htim8, &htim5, &htim4 };
 

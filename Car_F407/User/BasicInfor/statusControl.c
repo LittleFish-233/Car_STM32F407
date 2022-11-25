@@ -8,6 +8,8 @@
 #include "statusControl.h"
 #include "Car/infrared.h"
 #include "Car/Control.h"
+#include "math.h"
+
 //指令类型
 typedef enum
 {
@@ -28,14 +30,15 @@ typedef struct
 } Command;
 
 #define Command_Number 4
-#define Command_Turn_Duration 20
-#define Command_CooldownTime 10000
+#define Command_Turn_Duration 1000
+#define Command_Rotation_Duration Command_Turn_Duration*2
+#define Command_CooldownTime 11
 
 #define Turn_Speed_Step 10
 
-Command Commands[Command_Number] = { { Command_Right, Command_Turn_Duration, DriveState_Turn_Right, 0 }, { Command_Rotation, Command_Turn_Duration, DriveState_Derailment, 0 }, { Command_Left, Command_Turn_Duration, DriveState_Turn_Left, 0 }, { Command_Rotation, Command_Turn_Duration, DriveState_Derailment, 0 } };
+Command Commands[Command_Number] = { { Command_Right, Command_Turn_Duration, DriveState_Intersection, 0 }, { Command_Rotation, Command_Rotation_Duration, DriveState_Derailment, 0 }, { Command_Left, Command_Turn_Duration, DriveState_Intersection, 0 }, { Command_Rotation, Command_Rotation_Duration, DriveState_Derailment, 0 } };
 
-int8_t Command_Index = -1;
+int Command_Index = -1;
 
 uint32_t Last_RunCommand_Time;
 
@@ -46,15 +49,74 @@ uint8_t Command_Duration_Flag;
 //临时变量
 float Temp_Speed;
 
+//红外传感器的真实状态
+DriveState RealState;
+//异常状态的修正值
+DriveState AbnormaldState;
+
+//转弯步进
+#define StepLength 0.25
+
 void Status_Control_Clear()
 {
 	StatusControl_RuningFlag = 0;
 	Command_Duration_Flag = 0;
 	Command_Index = -1;
 	Last_RunCommand_Time = 0;
+	AbnormaldState = DriveState_Normal;
 }
-//周期性调用 控制小车运行
-void Periodic_Status_Control()
+
+//根据外设修正小车方向
+void CorrectCarDirection(DriveState state)
+{
+	//判断是否停止
+	if (Motor_Expected_Axis_Speeds[Axis_X] == 0 && Motor_Expected_Axis_Speeds[Axis_Z] == 0)
+	{
+		return;
+	}
+
+	//return;
+	float k = StepLength + 0.005 * fabs(Motor_Expected_Axis_Speeds[Axis_X]);
+
+	//向另一方向转弯时清空转弯角
+	float x = 0.0;
+	float y = 0.0;
+	float z = 0.0;
+
+	switch (state)
+	{
+		case DriveState_Left:
+			z = -k;
+			break;
+		case DriveState_Right:
+			z = k;
+			break;
+		case DriveState_Sharp_Left:
+			z = -k * 2;
+			break;
+		case DriveState_Sharp_Right:
+			z = k * 2;
+			break;
+		case DriveState_Normal:
+			Motor_Expected_Axis_Speeds[Axis_Z] = 0;
+		default:
+			break;
+	}
+
+	if (Motor_Expected_Axis_Speeds[Axis_X] < 0)
+	{
+		z = -z;
+	}
+
+	if (Motor_Expected_Axis_Speeds[Axis_Z] * z < 0)
+	{
+		Motor_Expected_Axis_Speeds[Axis_Z] = 0;
+	}
+
+	AddCarSpeed(x, y, z);
+}
+
+void UpdateCommand()
 {
 	//判断是否正在运行
 	if (StatusControl_RuningFlag == 0)
@@ -72,70 +134,101 @@ void Periodic_Status_Control()
 	//是否第一次结束指令持续作用
 	if (Command_Duration_Flag == 1)
 	{
-		Command_Duration_Flag = 0;
 
 		switch (Commands[Command_Index].Type)
 		{
-			case Command_Forward:
+			default:
+				if (RealState == DriveState_Normal)
+				{
+					SetCarSpeed(Temp_Speed, 0, 0);
+				}
+				else
+				{
+					Command_Duration_Flag = 1;
+					//放弃这一回合
+					return;
 
-				break;
-			case Command_Left:
-			case Command_Right:
-				Motor_Expected_Axis_Speeds[Axis_Z] = 0;
-				SetAbnormalBehavior(Abnormal_Mode_None, 0, 0, 0);
-				break;
-			case Command_Rotation:
-				Motor_Expected_Axis_Speeds[Axis_X] = Temp_Speed;
-				Motor_Expected_Axis_Speeds[Axis_Z] = 0;
-				SetAbnormalBehavior(Abnormal_Mode_None, Temp_Speed, 0, 0);
-				break;
-			case Command_Backward:
-
+				}
 				break;
 		}
+
+		Command_Duration_Flag = 0;
+
+		AbnormaldState = DriveState_Normal;
+
 	}
 
 	//判断是否在冷却时间
-	if (uwTick - Last_RunCommand_Time < Command_CooldownTime)
+	if (uwTick - Last_RunCommand_Time < Command_CooldownTime * (100.0 - Motor_Expected_Axis_Speeds[Axis_X]) + (Command_Index >= 0 ? Commands[Command_Index].Duration : 0))
 	{
 		return;
 	}
 
-	//获取当前红外状态
-	DriveState state = GetDriveState();
-
-	int8_t index = Command_Index + 1;
+	int index = Command_Index + 1;
 	if (index > Command_Number - 1)
 	{
 		index = 0;
 	}
 
 	//判断是否到达下一指令触发条件
-	if (Commands[index].Trigger != state)
+	if (Commands[index].Trigger != RealState)
 	{
 		return;
 	}
 
 	Command_Index = index;
+
 	//执行触发后操作
 	switch (Commands[Command_Index].Type)
 	{
 		case Command_Forward:
-
 			break;
 		case Command_Left:
-			SetAbnormalBehavior(Abnormal_Mode_Accumulate, 0, 0, -Turn_Speed_Step);
+			Temp_Speed = Motor_Expected_Axis_Speeds[Axis_X];
+			SetCarSpeed(Temp_Speed * 0.5, 0, Temp_Speed);
+			AbnormaldState = DriveState_Sharp_Right;
 			break;
 		case Command_Right:
-			SetAbnormalBehavior(Abnormal_Mode_Accumulate, 0, 0, Turn_Speed_Step);
+			Temp_Speed = Motor_Expected_Axis_Speeds[Axis_X];
+			SetCarSpeed(Temp_Speed * 0.5, 0, -Temp_Speed);
+			AbnormaldState = DriveState_Sharp_Left;
 			break;
 		case Command_Rotation:
 			Temp_Speed = Motor_Expected_Axis_Speeds[Axis_X];
-			SetAbnormalBehavior(Abnormal_Mode_Onetime, -Temp_Speed, 0, Temp_Speed);
+			SetCarSpeed(0, 0, Temp_Speed);
+			AbnormaldState = DriveState_Sharp_Right;
 			break;
 		case Command_Backward:
 
 			break;
 	}
+
+	//更新执行时间
 	Commands[Command_Index].RunCommand_Time = Last_RunCommand_Time = uwTick;
+}
+
+void ApplyCommand()
+{
+	DriveState state = RealState;
+	//if (RealState != DriveState_Left && RealState != DriveState_Right && RealState != DriveState_Sharp_Left && RealState != DriveState_Sharp_Right && RealState != DriveState_Normal)
+	if (AbnormaldState != DriveState_Normal)
+	{
+		state = DriveState_Derailment;
+	}
+
+	//修正实际偏差
+	CorrectCarDirection(state);
+	//将理论值应用到小车
+	Periodic_UpdateAndSet_Car_ExpectedSpeed();
+}
+
+//周期性调用 控制小车运行
+void Periodic_Status_Control()
+{
+	//获取当前红外状态
+	RealState = GetDriveState();
+	//根据辅助传感器更新异常状态指令
+	UpdateCommand();
+	//应用指令到实际运行
+	ApplyCommand();
 }

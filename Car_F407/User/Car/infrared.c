@@ -42,13 +42,13 @@ DriveState GetDriveState()
 	}
 	else if (Infrared_Datas[Infrared_Right])
 	{
-		return DriveState_Sharp_Right;
+		return DriveState_Sharp_Left;
 	}
 	else if (Infrared_Datas[Infrared_Left])
 	{
-		return DriveState_Sharp_Left;
+		return DriveState_Sharp_Right;
 	}
-	else if (Infrared_Datas[Infrared_Center_Left] == 0 && Infrared_Datas[Infrared_Center_Right] == 0)
+	else if (Infrared_Datas[Infrared_Center_Left] == 0 && Infrared_Datas[Infrared_Center_Right] == 0 && Infrared_Datas[Infrared_Left] == 0 && Infrared_Datas[Infrared_Right] == 0)
 	{
 		return DriveState_Derailment;
 	}
@@ -60,8 +60,12 @@ DriveState GetDriveState()
 	{
 		return DriveState_Right;
 	}
-	else
+	else if (Infrared_Datas[Infrared_Center_Right] && Infrared_Datas[Infrared_Center_Left])
 	{
 		return DriveState_Normal;
+	}
+	else
+	{
+		return DriveState_Undefined;
 	}
 }

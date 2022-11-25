@@ -1,2 +1,5 @@
-../User/BasicInfor/statusControl.c:49:6:Status_Control_Clear	0	static
-../User/BasicInfor/statusControl.c:57:6:Periodic_Status_Control	24	static
+../User/BasicInfor/statusControl.c:60:6:Status_Control_Clear	0	static
+../User/BasicInfor/statusControl.c:70:6:CorrectCarDirection	24	static
+../User/BasicInfor/statusControl.c:119:6:UpdateCommand	48	static
+../User/BasicInfor/statusControl.c:210:6:ApplyCommand	8	static
+../User/BasicInfor/statusControl.c:226:6:Periodic_Status_Control	8	static

@@ -21,9 +21,6 @@ extern float Motor_Actual_Speeds[Motor_Number];
 #define Motor_Expected_Speed_Max 80
 #define Motor_Expected_Speed_Min 5
 
-//转弯步进
-#define StepLength 2.5
-
 float Abnormal_Axis_Speed[3];
 
 Abnormal_Mode StateAbnormal_Mode;
@@ -44,80 +41,12 @@ void SetAbnormalBehavior(Abnormal_Mode model, float x, float y, float z)
 	Abnormal_Axis_Speed[2] = z;
 }
 
-//根据外设修正小车方向
-void CorrectCarDirection()
-{
-	//判断是否停止
-	if (Motor_Expected_Axis_Speeds[Axis_X] == 0 && Motor_Expected_Axis_Speeds[Axis_Z] == 0)
-	{
-		return;
-	}
-
-	DriveState hw = GetDriveState();
-	//return;
-	float k = 0.15 + 0.001 * fabs(Motor_Expected_Axis_Speeds[Axis_X]);
-
-	//向另一方向转弯时清空转弯角
-	float x = 0.0;
-	float y = 0.0;
-	float z = 0.0;
-
-	if (StateAbnormal_Mode == Abnormal_Mode_None)
-	{
-		switch (hw)
-		{
-			case DriveState_Left:
-				z = -StepLength * k;
-				break;
-			case DriveState_Right:
-				z = StepLength * k;
-				break;
-			case DriveState_Sharp_Left:
-				z = StepLength * k * 2;
-				break;
-			case DriveState_Sharp_Right:
-				z = - StepLength * k * 2;
-				break;
-			case DriveState_Normal:
-				Motor_Expected_Axis_Speeds[Axis_Z] = 0;
-			default:
-				break;
-		}
-	}
-	else
-	{
-		//未定义行为 即
-		switch (StateAbnormal_Mode)
-		{
-			case Abnormal_Mode_Accumulate:
-				x = Abnormal_Axis_Speed[Axis_X];
-				y = Abnormal_Axis_Speed[Axis_Y];
-				z = Abnormal_Axis_Speed[Axis_Z];
-				break;
-			case Abnormal_Mode_Onetime:
-				x = Abnormal_Axis_Speed[Axis_X];
-				y = Abnormal_Axis_Speed[Axis_Y];
-				z = Abnormal_Axis_Speed[Axis_Z];
-				//清零
-				Abnormal_Axis_Speed[Axis_X] = Abnormal_Axis_Speed[Axis_Y] = Abnormal_Axis_Speed[Axis_Z] = 0;
-				break;
-			default:
-				break;
-		}
-	}
-//
-//	if (Motor_Expected_Axis_Speeds[Axis_Z] * z < 0)
-//	{
-//		Motor_Expected_Axis_Speeds[Axis_Z] = 0;
-//	}
-
-	AddCarSpeed(x, y, z);
-}
-
 //周期更新设置值并应用
 void Periodic_UpdateAndSet_Car_ExpectedSpeed()
 {
-	CorrectCarDirection();
+	//CorrectCarDirection();
+	//更新实际速度
+	Periodic_Update_Car_ActualSpeed();
 	//级联更新计算PID
 	for (int motor = 0; motor < Motor_Number; ++motor)
 	{

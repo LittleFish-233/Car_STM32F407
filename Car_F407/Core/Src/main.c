@@ -154,16 +154,16 @@ int main(void)
 	HAL_TIM_Base_Start_IT(&htim6);
 	//初始化OLED
 	Screen_Init();
-
+	
 	//初始化串口
 	Init_USART();
-
+	
 	//初始化小车控制系统
 	InitCar();
 	//测试
 	//SetMotorSpeed(Motor_3, 100);
 	//SetCarSpeed(10, 0, 0);
-
+	
 	LED2_H();
   /* USER CODE END 2 */
 
@@ -236,24 +236,24 @@ void OLED_Proc()
 		return;
 	}
 	uwTick_OLED = uwTick;
-
+	
 	sprintf(String_Line, "A:%5.1f   B:%5.1f", Motor_Actual_Speeds[0], Motor_Actual_Speeds[1]);
 	Screen_ShowStringLine(0, String_Line, Font_Size);
 	sprintf(String_Line, "C:%5.1f   D:%5.1f", Motor_Actual_Speeds[2], Motor_Actual_Speeds[3]);
 	Screen_ShowStringLine(1, String_Line, Font_Size);
-
+	
 	sprintf(String_Line, "A:%5.1f   B:%5.1f", Motor_Expected_Speeds[0], Motor_Expected_Speeds[1]);
 	Screen_ShowStringLine(3, String_Line, Font_Size);
 	sprintf(String_Line, "C:%5.1f   D:%5.1f", Motor_Expected_Speeds[2], Motor_Expected_Speeds[3]);
 	Screen_ShowStringLine(4, String_Line, Font_Size);
-
+	
 	UpdateInfraredData();
 	sprintf(String_Line, "     %c %c %c %c", Infrared_Datas[Infrared_Right] ? '#' : ' ', Infrared_Datas[Infrared_Center_Right] ? '#' : ' ', Infrared_Datas[Infrared_Center_Left] ? '#' : ' ', Infrared_Datas[Infrared_Left] ? '#' : ' ');
 	Screen_ShowStringLine(6, String_Line, Font_Size);
-
+	
 	sprintf(String_Line, "%.2f V    %.2f C    %d s", GetBatteryLevel(), GetInternalTemperature(), (int) uwTick / 1000);
 	Screen_ShowStringLine(14, String_Line, Font_Size_Small);
-
+	
 }
 
 //向上位机发送当前小车数据
@@ -264,14 +264,14 @@ void SendData_Proc()
 		return;
 	}
 	uwTick_SendData = uwTick;
-
+	
 //发送数据
-
+	
 	TX_String[0] = ((uint16_t) (int16_t) (Motor_Expected_Speeds[0] * 100));
 	TX_String[1] = ((uint16_t) (int16_t) (Motor_Expected_Speeds[1] * 100));
 	TX_String[2] = ((uint16_t) (int16_t) (Motor_Expected_Axis_Speeds[0] * 100));
 	TX_String[3] = ((uint16_t) (int16_t) (Motor_Expected_Axis_Speeds[2] * 100));
-
+	
 	HAL_UART_Transmit(&huart1, (uint8_t*) TX_String, Motor_Number * 2, 0xFFFF);
 }
 
@@ -279,14 +279,14 @@ void SendData_Proc()
 void ProcessReceivedData()
 {
 	short speed = 0;
-
+	
 	if (RxData_Flag[UART_1] == RX_UnRead)
 	{
 		//清空标志位
 		CleanRxData(UART_1);
 		//清空休眠计数
 		Clean_Dormancy_Count();
-
+		
 		switch (RxData[UART_1][0])
 		{
 			case 'A':
@@ -303,7 +303,7 @@ void ProcessReceivedData()
 						break;
 					case '4':	//右下
 						AddCarSpeed(-Speed_Step, 0, -Direction_Step);
-
+						
 						break;
 					case '5':	//下
 						AddCarSpeed(-Speed_Step * 2, 0, 0);
@@ -340,7 +340,7 @@ void ProcessReceivedData()
 					//只有关闭巡线才能生效
 					Set_Motor_ExpectedSpeed(i, speed);
 				}
-
+				
 				break;
 			default:
 				break;
@@ -361,28 +361,28 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	else if (htim->Instance == TIM6)
 	{
 		//每0.1ms
-
+		
 		//系统控制小车
 		Periodic_Status_Control();
 		//更新实际值
-		Periodic_Update_Car_ActualSpeed();
+		//Periodic_Update_Car_ActualSpeed();
 		//更新理论值
-		Periodic_UpdateAndSet_Car_ExpectedSpeed();
+		//Periodic_UpdateAndSet_Car_ExpectedSpeed();
 		if (Is_Car_Runing() == 1)
 		{
 			//清空休眠计数
 			Clean_Dormancy_Count();
 		}
 	}
-
+	
 	else if (htim->Instance == TIM7)
 	{
 		//每1s
-
+		
 		//休眠
 		Periodic_Dormancy_Counter();
 	}
-
+	
 	if (htim->Instance == TIM8)
 	{
 		//接收上位机数据
@@ -395,14 +395,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 //清空休眠计数
 	Clean_Dormancy_Count();
-
+	
 	if (GPIO_Pin == Key_Stop_Pin)
 	{
 		//紧急制动按钮
-
+		
 		SetCarSpeed(0, 0, 0);
 	}
-
+	
 }
 
 /* USER CODE END 4 */
