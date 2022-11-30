@@ -32,11 +32,11 @@ DriveState GetDriveState()
 	{
 		return DriveState_Intersection;
 	}
-	else if (Infrared_Datas[Infrared_Right] && Infrared_Datas[Infrared_Center_Right])
+	else if (Infrared_Datas[Infrared_Center_Left] && Infrared_Datas[Infrared_Center_Right] && Infrared_Datas[Infrared_Right])
 	{
 		return DriveState_Turn_Right;
 	}
-	else if (Infrared_Datas[Infrared_Left] && Infrared_Datas[Infrared_Center_Left])
+	else if (Infrared_Datas[Infrared_Center_Right] && Infrared_Datas[Infrared_Center_Left] && Infrared_Datas[Infrared_Left])
 	{
 		return DriveState_Turn_Left;
 	}

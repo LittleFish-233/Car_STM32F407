@@ -10,33 +10,20 @@
 #include "Car/Control.h"
 #include "math.h"
 
-//指令类型
-typedef enum
-{
-	Command_Forward, Command_Left, Command_Right, Command_Backward, Command_Rotation
-} Command_Type;
-
 //typedef enum
 //{
 //	Command_Trigger_None,Command_Trigger_Left, Command_Trigger_Right, Command_Trigger_Cross
 //} Command_Trigger;
 
-typedef struct
-{
-	Command_Type Type;
-	uint32_t Duration;
-	DriveState Trigger;
-	uint32_t RunCommand_Time;
-} Command;
-
-#define Command_Number 4
-#define Command_Turn_Duration 1000
+#define Command_Turn_Duration 500
 #define Command_Rotation_Duration Command_Turn_Duration*2
 #define Command_CooldownTime 11
 
 #define Turn_Speed_Step 10
 
-Command Commands[Command_Number] = { { Command_Right, Command_Turn_Duration, DriveState_Intersection, 0 }, { Command_Rotation, Command_Rotation_Duration, DriveState_Derailment, 0 }, { Command_Left, Command_Turn_Duration, DriveState_Intersection, 0 }, { Command_Rotation, Command_Rotation_Duration, DriveState_Derailment, 0 } };
+uint8_t Command_Number = 4;
+
+Command Commands[Command_Number_Max] = { { Command_Right, Command_Turn_Duration, 0 }, { Command_Right, Command_Rotation_Duration, 0 }, { Command_Rotation, Command_Turn_Duration, 0 }, { Command_Left, Command_Rotation_Duration, 0 } };
 
 int Command_Index = -1;
 
@@ -46,24 +33,36 @@ uint32_t Last_RunCommand_Time;
 uint8_t StatusControl_RuningFlag;
 //指令持续标志
 uint8_t Command_Duration_Flag;
-//临时变量
-float Temp_Speed;
+
+//预设速度
+float Default_Speed;
 
 //红外传感器的真实状态
 DriveState RealState;
 //异常状态的修正值
 DriveState AbnormaldState;
 
+//指令模式
+Command_Mode Mode;
+
 //转弯步进
 #define StepLength 0.25
 
 void Status_Control_Clear()
 {
+	SetCarSpeed(0, 0, 0);
 	StatusControl_RuningFlag = 0;
 	Command_Duration_Flag = 0;
 	Command_Index = -1;
 	Last_RunCommand_Time = 0;
 	AbnormaldState = DriveState_Normal;
+}
+
+void Status_Control_Start(Command_Mode mode, float default_Speed)
+{
+	StatusControl_RuningFlag = 1;
+	Default_Speed = default_Speed == 0 ? Motor_Expected_Axis_Speeds[Axis_X] : default_Speed;
+	Mode = mode;
 }
 
 //根据外设修正小车方向
@@ -140,7 +139,7 @@ void UpdateCommand()
 			default:
 				if (RealState == DriveState_Normal)
 				{
-					SetCarSpeed(Temp_Speed, 0, 0);
+					SetCarSpeed(Default_Speed, 0, 0);
 				}
 				else
 				{
@@ -164,16 +163,24 @@ void UpdateCommand()
 		return;
 	}
 
+	//判断是否到达下一指令触发条件
+	if (DriveState_Intersection != RealState && DriveState_Turn_Left != RealState && DriveState_Turn_Right != RealState)
+	{
+		return;
+	}
+
 	int index = Command_Index + 1;
 	if (index > Command_Number - 1)
 	{
-		index = 0;
-	}
-
-	//判断是否到达下一指令触发条件
-	if (Commands[index].Trigger != RealState)
-	{
-		return;
+		//是否为循环模式
+		if (Mode == Command_Mode_OneTime)
+		{
+			Status_Control_Clear();
+		}
+		else
+		{
+			index = 0;
+		}
 	}
 
 	Command_Index = index;
@@ -184,18 +191,15 @@ void UpdateCommand()
 		case Command_Forward:
 			break;
 		case Command_Left:
-			Temp_Speed = Motor_Expected_Axis_Speeds[Axis_X];
-			SetCarSpeed(Temp_Speed * 0.5, 0, Temp_Speed);
+			SetCarSpeed(Default_Speed * 0.5, 0, Default_Speed);
 			AbnormaldState = DriveState_Sharp_Right;
 			break;
 		case Command_Right:
-			Temp_Speed = Motor_Expected_Axis_Speeds[Axis_X];
-			SetCarSpeed(Temp_Speed * 0.5, 0, -Temp_Speed);
+			SetCarSpeed(Default_Speed * 0.5, 0, -Default_Speed);
 			AbnormaldState = DriveState_Sharp_Left;
 			break;
 		case Command_Rotation:
-			Temp_Speed = Motor_Expected_Axis_Speeds[Axis_X];
-			SetCarSpeed(0, 0, Temp_Speed);
+			SetCarSpeed(0, 0, Default_Speed);
 			AbnormaldState = DriveState_Sharp_Right;
 			break;
 		case Command_Backward:
