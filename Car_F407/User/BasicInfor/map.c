@@ -26,7 +26,7 @@ MapNode MapList[NodeNumber];
 //第一项的节点A为原点 其余项必须以存在的节点开始延申
 MapNodeRelationship NodeList[NodeRelationshipNumber] = {
 
-{ 1, 2, Direction_Right, 5 },
+{ 1, 2, Direction_Right, 2 },
 
 { 2, 3, Direction_Right, 2 },
 
@@ -36,9 +36,9 @@ MapNodeRelationship NodeList[NodeRelationshipNumber] = {
 
 { 3, 6, Direction_Top, 2 },
 
-{ 4, 5, Direction_Right, 5 },
+{ 4, 5, Direction_Right, 2 },
 
-{ 5, 6, Direction_Left, 2 },
+{ 5, 6, Direction_Right, 2 },
 
 { 4, 7, Direction_Top, 2 },
 
@@ -46,7 +46,7 @@ MapNodeRelationship NodeList[NodeRelationshipNumber] = {
 
 { 6, 9, Direction_Top, 2 },
 
-{ 8, 7, Direction_Right, 5 },
+{ 7, 8, Direction_Right, 2 },
 
 { 8, 9, Direction_Right, 2 }
 
@@ -56,9 +56,9 @@ MapNode *OpenList[NodeNumber];
 MapNode *CloseList[NodeNumber];
 
 //当前朝向
-Direction CurrentDirection;
+Direction CurrentDirection = Direction_Top;
 //起点
-uint8_t StartPoint;
+uint8_t StartPoint = 1;
 
 //计算两坐标距离
 uint16_t CalculateDistance(MapNodePosition *A, MapNodePosition *B)
@@ -87,17 +87,26 @@ void CalculateFGH(MapNode *node, Direction direction, MapNode *EndPoint)
 	//累计父节点距离
 }
 
-//查找路径 返回终点
-MapNode* WayFinding(uint8_t end)
+//清空缓存
+void ClearCache()
 {
-	MapNode *StartingNode = &MapList[StartPoint];
-	MapNode *EndNode = &MapList[end];
-
 	for (int i = 0; i < NodeNumber; i++)
 	{
 		CloseList[i] = OpenList[i] = NULL;
+		MapList[i].ParentNode = 0;
 	}
+}
 
+//查找路径 返回终点
+MapNode* WayFinding(uint8_t end)
+{
+
+	MapNode *StartingNode = &MapList[StartPoint];
+	MapNode *EndNode = &MapList[end];
+
+	printfX("起点：%d\n终点：%d\n初始朝向：%d\n", StartingNode->Index, EndNode->Index, CurrentDirection);
+
+	ClearCache();
 	// 把起点加入 open list
 	OpenList[StartingNode->Index] = StartingNode;
 	CalculateFGH(StartingNode, Direction_None, EndNode);
@@ -195,10 +204,24 @@ MapNode* WayFinding(uint8_t end)
 //获取当前朝向 向何处转弯 才能调整为目标朝向
 Direction GetDirectionDeviation(Direction current, Direction object)
 {
-	uint8_t dev_c = current == Direction_Top ? 0 : DirectionNumber - current;
-	uint8_t dev_o = object == Direction_Top ? 0 : DirectionNumber - object;
+	if (current == object)
+	{
+		return 0;
+	}
+	if ((current + 1) % DirectionNumber == object)
+	{
+		return 1;
+	}
+	if ((current + 2) % DirectionNumber == object)
+	{
+		return 2;
+	}
 
-	return (dev_c + dev_o) % DirectionNumber;
+	if ((current + 3) % DirectionNumber == object)
+	{
+		return 3;
+	}
+	return 4;
 
 }
 
@@ -216,12 +239,11 @@ uint8_t RoadToCommand(MapNode *node, uint8_t layer)
 	else
 	{
 		uint8_t reLayer = RoadToCommand(&MapList[node->ParentNode], layer + 1);
-		Direction dir = node->ParentNode;
-		if (reLayer == 0)
-		{
-			//起点需要考虑初始朝向偏差
-			dir = GetDirectionDeviation(CurrentDirection, node->ParentNode);
-		}
+
+		//需要考虑上一端点朝向偏差
+		Direction dir = GetDirectionDeviation(CurrentDirection, node->Direction);
+		CurrentDirection = node->Direction;
+
 		printfX(" -- ");
 		switch (dir)
 		{
@@ -243,7 +265,7 @@ uint8_t RoadToCommand(MapNode *node, uint8_t layer)
 				Commands[reLayer].RunCommand_Time = 0;
 				Commands[reLayer].Type = Command_Forward;
 				break;
-			case Direction_Bottom:
+			case Direction_Bottom:		//无法后退 即调头
 				printfX("下");
 				Commands[reLayer].Duration = Command_Rotation_Duration;
 				Commands[reLayer].RunCommand_Time = 0;
@@ -259,7 +281,7 @@ uint8_t RoadToCommand(MapNode *node, uint8_t layer)
 		if (layer == 0)
 		{
 			Command_Number = reLayer + 1;
-			printfX("\n\r");
+			printfX("\n");
 		}
 		return reLayer + 1;
 	}
@@ -269,7 +291,7 @@ uint8_t RoadToCommand(MapNode *node, uint8_t layer)
 //画出地图
 void GenerateMap()
 {
-	const int length = 30;
+	const int length = 20;
 	//0 空地 -1 路 1 2 3 ....节点
 	int map[length][length];
 	for (int i = 0; i < length; i++)
@@ -279,8 +301,8 @@ void GenerateMap()
 			map[i][j] = 0;
 		}
 	}
-	int x = length / 2;
-	int y = length / 2;
+	int x = 0;
+	int y = length - 1;
 
 	for (int i = 0; i < NodeRelationshipNumber; i++)
 	{
@@ -298,7 +320,7 @@ void GenerateMap()
 			else
 			{
 				//报错 节点必须存在
-				printfX("初始化地图错误，首节点必须存在\n\r");
+				printfX("初始化地图错误，首节点必须存在\n");
 			}
 		}
 		else
@@ -390,7 +412,7 @@ void GenerateMap()
 			{
 				if ((i - 1 < 0 || map[i - 1][j] == 0) && (i + 1 > length - 1 || map[i + 1][j] == 0))
 				{
-					printfX("| ");
+					printfX("|  ");
 				}
 				else
 				{
@@ -404,18 +426,18 @@ void GenerateMap()
 			}
 			else
 			{
-				printfX("  ");
+				printfX("   ");
 			}
 
 		}
-		printfX("\n\r");
+		printfX("\n");
 	}
 }
 
 //初始化地图
 void InitMap()
 {
-	printfX("初始化地图\n\r");
+	printfX("初始化地图\n");
 	GenerateMap();
 }
 
@@ -436,8 +458,14 @@ void StartWayFindingAndRuning(uint8_t end)
 	if (layer == 0)
 	{
 		printfX("起点与终点重合\n\r");
+		return;
 	}
 
+	//清空状态
+	Status_Control_Clear();
 	//开始运动
 	Status_Control_Start(Command_Mode_OneTime, RuningSpeed);
+	
+	//更改当前位置 假定到达
+	StartPoint = end;
 }

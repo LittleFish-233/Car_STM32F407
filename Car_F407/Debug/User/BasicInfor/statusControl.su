@@ -2,5 +2,5 @@
 ../User/BasicInfor/statusControl.c:55:6:Status_Control_Start	16	static
 ../User/BasicInfor/statusControl.c:63:6:CorrectCarDirection	32	static
 ../User/BasicInfor/statusControl.c:112:6:UpdateCommand	32	static
-../User/BasicInfor/statusControl.c:216:6:ApplyCommand	16	static
-../User/BasicInfor/statusControl.c:232:6:Periodic_Status_Control	8	static
+../User/BasicInfor/statusControl.c:218:6:ApplyCommand	16	static
+../User/BasicInfor/statusControl.c:234:6:Periodic_Status_Control	8	static

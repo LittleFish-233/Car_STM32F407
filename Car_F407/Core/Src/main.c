@@ -346,13 +346,13 @@ void ProcessReceivedData()
 			case 'C':
 				//设置起点 和 朝向
 				dir = RxData[UART_1][1] - '0';
-				point = (RxData[UART_1][2] - '0') * 10 + (RxData[UART_1][3] - '0');
+				point = RxData[UART_1][2] - '0';
 				SetDefaultValue(dir, point);
 
 				break;
 			case 'D':
 				//设置终点并开始寻路
-				point = (RxData[UART_1][1] - '0') * 10 + (RxData[UART_1][2] - '0');
+				point = RxData[UART_1][1] - '0';
 				StartWayFindingAndRuning(point);
 				break;
 			default:

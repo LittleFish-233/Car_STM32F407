@@ -160,7 +160,7 @@ void UpdateCommand()
 	//判断是否到达下一指令触发条件
 	if (DriveState_Intersection != RealState && DriveState_Turn_Left != RealState && DriveState_Turn_Right != RealState)
 	{
-		if (Motor_Expected_Axis_Speeds[Axis_X] == 0 && Motor_Expected_Axis_Speeds[Axis_Z] == 0 && DriveState_Derailment == RealState)
+		if (Motor_Expected_Axis_Speeds[Axis_X] == 0 && Motor_Expected_Axis_Speeds[Axis_Z] == 0 && Command_Index == -1)
 		{
 
 		}
@@ -178,6 +178,7 @@ void UpdateCommand()
 		if (Mode == Command_Mode_OneTime)
 		{
 			Status_Control_Clear();
+			return;
 		}
 		else
 		{
@@ -191,6 +192,7 @@ void UpdateCommand()
 	switch (Commands[Command_Index].Type)
 	{
 		case Command_Forward:
+			SetCarSpeed(Default_Speed, 0, 0);
 			break;
 		case Command_Left:
 			SetCarSpeed(Default_Speed * 0.5, 0, Default_Speed);
