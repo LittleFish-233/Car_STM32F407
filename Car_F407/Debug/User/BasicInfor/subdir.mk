@@ -8,6 +8,7 @@ C_SRCS += \
 ../User/BasicInfor/debug.c \
 ../User/BasicInfor/delay.c \
 ../User/BasicInfor/dormancy.c \
+../User/BasicInfor/map.c \
 ../User/BasicInfor/statusControl.c \
 ../User/BasicInfor/tool.c 
 
@@ -15,6 +16,7 @@ OBJS += \
 ./User/BasicInfor/debug.o \
 ./User/BasicInfor/delay.o \
 ./User/BasicInfor/dormancy.o \
+./User/BasicInfor/map.o \
 ./User/BasicInfor/statusControl.o \
 ./User/BasicInfor/tool.o 
 
@@ -22,6 +24,7 @@ C_DEPS += \
 ./User/BasicInfor/debug.d \
 ./User/BasicInfor/delay.d \
 ./User/BasicInfor/dormancy.d \
+./User/BasicInfor/map.d \
 ./User/BasicInfor/statusControl.d \
 ./User/BasicInfor/tool.d 
 
@@ -33,7 +36,7 @@ User/BasicInfor/%.o User/BasicInfor/%.su: ../User/BasicInfor/%.c User/BasicInfor
 clean: clean-User-2f-BasicInfor
 
 clean-User-2f-BasicInfor:
-	-$(RM) ./User/BasicInfor/debug.d ./User/BasicInfor/debug.o ./User/BasicInfor/debug.su ./User/BasicInfor/delay.d ./User/BasicInfor/delay.o ./User/BasicInfor/delay.su ./User/BasicInfor/dormancy.d ./User/BasicInfor/dormancy.o ./User/BasicInfor/dormancy.su ./User/BasicInfor/statusControl.d ./User/BasicInfor/statusControl.o ./User/BasicInfor/statusControl.su ./User/BasicInfor/tool.d ./User/BasicInfor/tool.o ./User/BasicInfor/tool.su
+	-$(RM) ./User/BasicInfor/debug.d ./User/BasicInfor/debug.o ./User/BasicInfor/debug.su ./User/BasicInfor/delay.d ./User/BasicInfor/delay.o ./User/BasicInfor/delay.su ./User/BasicInfor/dormancy.d ./User/BasicInfor/dormancy.o ./User/BasicInfor/dormancy.su ./User/BasicInfor/map.d ./User/BasicInfor/map.o ./User/BasicInfor/map.su ./User/BasicInfor/statusControl.d ./User/BasicInfor/statusControl.o ./User/BasicInfor/statusControl.su ./User/BasicInfor/tool.d ./User/BasicInfor/tool.o ./User/BasicInfor/tool.su
 
 .PHONY: clean-User-2f-BasicInfor
 

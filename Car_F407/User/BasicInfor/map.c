@@ -73,7 +73,7 @@ uint16_t CalculateDistance(MapNodePosition *A, MapNodePosition *B)
 void CalculateFGH(MapNode *node, Direction direction, MapNode *EndPoint)
 {
 
-	if (node->ParentNode == NULL)
+	if (node->ParentNode == 0)
 	{
 		node->H = CalculateDistance(&node->Position, &EndPoint->Position);
 		node->F = node->H;
@@ -207,7 +207,7 @@ Direction GetDirectionDeviation(Direction current, Direction object)
 //node：终点
 uint8_t RoadToCommand(MapNode *node, uint8_t layer)
 {
-	if (node->ParentNode == NULL)
+	if (node->ParentNode == 0)
 	{
 		//父节点为空即为起点
 		printfX("%d", node->Index);
@@ -215,7 +215,7 @@ uint8_t RoadToCommand(MapNode *node, uint8_t layer)
 	}
 	else
 	{
-		uint8_t reLayer = PrintfRoad(&MapList[node->ParentNode], layer + 1);
+		uint8_t reLayer = RoadToCommand(&MapList[node->ParentNode], layer + 1);
 		Direction dir = node->ParentNode;
 		if (reLayer == 0)
 		{
@@ -248,6 +248,8 @@ uint8_t RoadToCommand(MapNode *node, uint8_t layer)
 				Commands[reLayer].Duration = Command_Rotation_Duration;
 				Commands[reLayer].RunCommand_Time = 0;
 				Commands[reLayer].Type = Command_Rotation;
+				break;
+			default:
 				break;
 		}
 		printfX(" --> ");

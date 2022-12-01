@@ -161,6 +161,8 @@ int main(void)
 
 	//初始化小车控制系统
 	InitCar();
+	//初始化地图
+	InitMap();
 	//测试
 	//SetMotorSpeed(Motor_3, 100);
 	//SetCarSpeed(10, 0, 0);
