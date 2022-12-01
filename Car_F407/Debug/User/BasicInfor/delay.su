@@ -1,2 +1,2 @@
-../User/BasicInfor/delay.c:10:6:delay_us	8	static,ignoring_inline_asm
-../User/BasicInfor/delay.c:23:6:delay_ms	0	static
+../User/BasicInfor/delay.c:10:6:delay_us	24	static,ignoring_inline_asm
+../User/BasicInfor/delay.c:23:6:delay_ms	16	static

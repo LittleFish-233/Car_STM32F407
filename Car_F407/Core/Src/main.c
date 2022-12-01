@@ -29,7 +29,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <BasicInfor/map.h>
 #include "LED/led.h"
 #include "Screen/screen.h"
 #include "Screen/bmp.h"
@@ -45,6 +45,7 @@
 #include "Flash/W25Qxx.h"
 #include "FATFS/bsp_fatfs.h"
 #include "BasicInfor/statusControl.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -278,7 +279,8 @@ void SendData_Proc()
 void ProcessReceivedData()
 {
 	short speed = 0;
-
+	Direction dir;
+	uint8_t point = 0;
 	if (RxData_Flag[UART_1] == RX_UnRead)
 	{
 		//清空标志位
@@ -338,6 +340,18 @@ void ProcessReceivedData()
 					Set_Motor_ExpectedSpeed(i, speed);
 				}
 
+				break;
+			case 'C':
+				//设置起点 和 朝向
+				dir = RxData[UART_1][1] - '0';
+				point = (RxData[UART_1][2] - '0') * 10 + (RxData[UART_1][3] - '0');
+				SetDefaultValue(dir, point);
+
+				break;
+			case 'D':
+				//设置终点并开始寻路
+				point = (RxData[UART_1][1] - '0') * 10 + (RxData[UART_1][2] - '0');
+				StartWayFindingAndRuning(point);
 				break;
 			default:
 				break;

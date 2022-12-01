@@ -45,6 +45,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../FATFS/Target/sd_diskio.h ../FATFS/Target/user_diskio.h \
  ../Core/Inc/sdio.h ../Core/Inc/spi.h ../Core/Inc/tim.h \
  ../Core/Inc/usart.h ../Core/Inc/gpio.h \
+ G:/Code/Car_F407/Car_F407/User/BasicInfor/map.h \
  G:/Code/Car_F407/Car_F407/User/LED/led.h \
  G:/Code/Car_F407/Car_F407/User/Screen/screen.h \
  G:/Code/Car_F407/Car_F407/User/Screen/lcd.h \
@@ -119,6 +120,7 @@ G:/Code/Car_F407/Car_F407/Middlewares/Third_Party/FatFs/src/ff.h:
 ../Core/Inc/tim.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/gpio.h:
+G:/Code/Car_F407/Car_F407/User/BasicInfor/map.h:
 G:/Code/Car_F407/Car_F407/User/LED/led.h:
 G:/Code/Car_F407/Car_F407/User/Screen/screen.h:
 G:/Code/Car_F407/Car_F407/User/Screen/lcd.h:

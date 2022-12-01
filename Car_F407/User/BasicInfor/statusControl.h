@@ -11,6 +11,10 @@
 #include "main.h"
 
 #define Command_Number_Max 20
+#define Command_Turn_Duration 500
+#define Command_Rotation_Duration Command_Turn_Duration*2
+#define Command_CooldownTime 11
+#define Turn_Speed_Step 10
 
 //指令类型
 typedef enum
@@ -32,7 +36,6 @@ typedef struct
 	uint32_t RunCommand_Time;
 } Command;
 
-extern uint8_t StatusControl_RuningFlag;
 extern uint8_t Command_Number;
 extern Command Commands[Command_Number_Max];
 

@@ -15,15 +15,9 @@
 //	Command_Trigger_None,Command_Trigger_Left, Command_Trigger_Right, Command_Trigger_Cross
 //} Command_Trigger;
 
-#define Command_Turn_Duration 500
-#define Command_Rotation_Duration Command_Turn_Duration*2
-#define Command_CooldownTime 11
-
-#define Turn_Speed_Step 10
-
 uint8_t Command_Number = 4;
 
-Command Commands[Command_Number_Max] = { { Command_Right, Command_Turn_Duration, 0 }, { Command_Right, Command_Rotation_Duration, 0 }, { Command_Rotation, Command_Turn_Duration, 0 }, { Command_Left, Command_Rotation_Duration, 0 } };
+Command Commands[Command_Number_Max] = { { Command_Rotation, Command_Turn_Duration, 0 }, { Command_Right, Command_Rotation_Duration, 0 }, { Command_Rotation, Command_Turn_Duration, 0 }, { Command_Left, Command_Rotation_Duration, 0 } };
 
 int Command_Index = -1;
 
@@ -166,7 +160,15 @@ void UpdateCommand()
 	//判断是否到达下一指令触发条件
 	if (DriveState_Intersection != RealState && DriveState_Turn_Left != RealState && DriveState_Turn_Right != RealState)
 	{
-		return;
+		if (Motor_Expected_Axis_Speeds[Axis_X] == 0 && Motor_Expected_Axis_Speeds[Axis_Z] == 0 && DriveState_Derailment == RealState)
+		{
+
+		}
+		else
+		{
+			return;
+		}
+
 	}
 
 	int index = Command_Index + 1;

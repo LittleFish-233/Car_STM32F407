@@ -1,9 +1,9 @@
 ../User/Car/control.c:28:6:InitCar	8	static
-../User/Car/control.c:36:6:SetAbnormalBehavior	0	static
-../User/Car/control.c:58:9:Is_Car_Runing	0	static
-../User/Car/control.c:73:6:Periodic_Update_Car_ActualSpeed	8	static
+../User/Car/control.c:36:6:SetAbnormalBehavior	24	static
 ../User/Car/control.c:45:6:Periodic_UpdateAndSet_Car_ExpectedSpeed	24	static
-../User/Car/control.c:89:6:Set_Motor_ExpectedSpeed	0	static
-../User/Car/control.c:95:6:Transform_AxisSpeed	0	static
-../User/Car/control.c:131:6:AddCarSpeed	0	static
-../User/Car/control.c:141:6:SetCarSpeed	0	static
+../User/Car/control.c:58:9:Is_Car_Runing	16	static
+../User/Car/control.c:73:6:Periodic_Update_Car_ActualSpeed	16	static
+../User/Car/control.c:89:6:Set_Motor_ExpectedSpeed	16	static
+../User/Car/control.c:95:6:Transform_AxisSpeed	16	static
+../User/Car/control.c:131:6:AddCarSpeed	24	static
+../User/Car/control.c:141:6:SetCarSpeed	24	static

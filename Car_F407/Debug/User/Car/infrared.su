@@ -1,2 +1,2 @@
-../User/Car/infrared.c:17:6:UpdateInfraredData	24	static
+../User/Car/infrared.c:17:6:UpdateInfraredData	16	static
 ../User/Car/infrared.c:26:12:GetDriveState	8	static
