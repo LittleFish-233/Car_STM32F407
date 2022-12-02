@@ -16,6 +16,9 @@ RM := rm -rf
 -include User/FATFS/subdir.mk
 -include User/Car/subdir.mk
 -include User/BasicInfor/subdir.mk
+-include User/Balance/MPU6050/DSP/subdir.mk
+-include User/Balance/MPU6050/subdir.mk
+-include User/Balance/subdir.mk
 -include User/ADC/subdir.mk
 -include Middlewares/Third_Party/FatFs/src/option/subdir.mk
 -include Middlewares/Third_Party/FatFs/src/subdir.mk

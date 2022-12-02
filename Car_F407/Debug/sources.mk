@@ -29,6 +29,9 @@ FATFS/Target \
 Middlewares/Third_Party/FatFs/src \
 Middlewares/Third_Party/FatFs/src/option \
 User/ADC \
+User/Balance/MPU6050/DSP \
+User/Balance/MPU6050 \
+User/Balance \
 User/BasicInfor \
 User/Car \
 User/FATFS \

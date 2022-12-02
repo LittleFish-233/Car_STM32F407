@@ -5,10 +5,10 @@
  *      Author: Little Fish
  */
 
-#include "control.h"
+#include <Car/speedControl.h>
+#include <Car/speedPID.h>
 #include "TB6612.h"
 #include "GMR_Encoder.h"
-#include "Speed_PID.h"
 #include "infrared.h"
 #include "math.h"
 //电机理论速度

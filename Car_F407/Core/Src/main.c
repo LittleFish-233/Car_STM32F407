@@ -21,6 +21,7 @@
 #include "adc.h"
 #include "dma.h"
 #include "fatfs.h"
+#include "i2c.h"
 #include "sdio.h"
 #include "spi.h"
 #include "tim.h"
@@ -35,16 +36,17 @@
 #include "Screen/bmp.h"
 #include "Screen/lcd.h"
 #include "Screen/image.h"
-#include "Car/control.h"
 #include "Car/TB6612.h"
 #include "UART/bsp_uart.h"
 #include <BasicInfor/tool.h>
+#include <Car/speedControl.h>
 #include <Screen/oled.h>
 #include "BasicInfor/dormancy.h"
 #include "BasicInfor/debug.h"
 #include "Flash/W25Qxx.h"
 #include "FATFS/bsp_fatfs.h"
 #include "BasicInfor/statusControl.h"
+#include "Balance//control.h"
 
 /* USER CODE END Includes */
 
@@ -98,51 +100,53 @@ void ProcessReceivedData();
 /* USER CODE END 0 */
 
 /**
- * @brief  The application entry point.
- * @retval int
- */
+  * @brief  The application entry point.
+  * @retval int
+  */
 int main(void)
 {
-	/* USER CODE BEGIN 1 */
+    /* USER CODE BEGIN 1 */
 
-	/* USER CODE END 1 */
+    /* USER CODE END 1 */
 
-	/* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-	HAL_Init();
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    HAL_Init();
 
-	/* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-	/* USER CODE END Init */
+    /* USER CODE END Init */
 
-	/* Configure the system clock */
-	SystemClock_Config();
+    /* Configure the system clock */
+    SystemClock_Config();
 
-	/* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-	/* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-	/* Initialize all configured peripherals */
-	MX_GPIO_Init();
-	MX_DMA_Init();
-	MX_TIM14_Init();
-	MX_TIM1_Init();
-	MX_TIM3_Init();
-	MX_TIM4_Init();
-	MX_TIM5_Init();
-	MX_ADC1_Init();
-	MX_TIM6_Init();
-	MX_USART1_UART_Init();
-	MX_TIM7_Init();
-	MX_TIM13_Init();
-	MX_SPI1_Init();
-	MX_SPI2_Init();
-	MX_TIM8_Init();
-	MX_USART2_UART_Init();
-	MX_SDIO_SD_Init();
-	MX_FATFS_Init();
-	/* USER CODE BEGIN 2 */
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    MX_DMA_Init();
+    MX_TIM14_Init();
+    MX_TIM1_Init();
+    MX_TIM3_Init();
+    MX_TIM4_Init();
+    MX_TIM5_Init();
+    MX_ADC1_Init();
+    MX_TIM6_Init();
+    MX_USART1_UART_Init();
+    MX_TIM7_Init();
+    MX_TIM13_Init();
+    MX_SPI1_Init();
+    MX_SPI2_Init();
+    MX_TIM8_Init();
+    MX_USART2_UART_Init();
+    MX_SDIO_SD_Init();
+    MX_FATFS_Init();
+    MX_I2C1_Init();
+    MX_TIM11_Init();
+  /* USER CODE BEGIN 2 */
 
 	//初始化呼吸灯 指示运行
 	HAL_TIM_Base_Start_IT(&htim14);
@@ -163,69 +167,74 @@ int main(void)
 	InitCar();
 	//初始化地图
 	InitMap();
+	//初始化MPU
+	InitMPU();
+	//定期更新偏航角
+	HAL_TIM_Base_Start_IT(&htim11);
 	//测试
 	//SetMotorSpeed(Motor_3, 100);
 	//SetCarSpeed(10, 0, 0);
 
 	LED2_H();
-	/* USER CODE END 2 */
+  /* USER CODE END 2 */
 
-	/* Infinite loop */
-	/* USER CODE BEGIN WHILE */
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		/* USER CODE END WHILE */
+        /* USER CODE END WHILE */
 
-		/* USER CODE BEGIN 3 */
+        /* USER CODE BEGIN 3 */
 		OLED_Proc();
 		SendData_Proc();
 	}
-	/* USER CODE END 3 */
+    /* USER CODE END 3 */
 }
 
 /**
- * @brief System Clock Configuration
- * @retval None
- */
+    * @brief System Clock Configuration
+    * @retval None
+    */
 void SystemClock_Config(void)
 {
-	RCC_OscInitTypeDef RCC_OscInitStruct = { 0 };
-	RCC_ClkInitTypeDef RCC_ClkInitStruct = { 0 };
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-	/** Configure the main internal regulator output voltage
-	 */
-	__HAL_RCC_PWR_CLK_ENABLE();
-	__HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+    /** Configure the main internal regulator output voltage
+    */
+    __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
-	/** Initializes the RCC Oscillators according to the specified parameters
-	 * in the RCC_OscInitTypeDef structure.
-	 */
-	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-	RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-	RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-	RCC_OscInitStruct.PLL.PLLM = 8;
-	RCC_OscInitStruct.PLL.PLLN = 168;
-	RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-	RCC_OscInitStruct.PLL.PLLQ = 7;
-	if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-	{
-		Error_Handler();
-	}
+    /** Initializes the RCC Oscillators according to the specified parameters
+    * in the RCC_OscInitTypeDef structure.
+    */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+    RCC_OscInitStruct.PLL.PLLM = 8;
+    RCC_OscInitStruct.PLL.PLLN = 168;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+    RCC_OscInitStruct.PLL.PLLQ = 7;
+    if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+    {
+        Error_Handler();
+    }
 
-	/** Initializes the CPU, AHB and APB buses clocks
-	 */
-	RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
-	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-	RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-	RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+    /** Initializes the CPU, AHB and APB buses clocks
+    */
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                                                            |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
-	{
-		Error_Handler();
-	}
+    if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+    {
+        Error_Handler();
+    }
 }
 
 /* USER CODE BEGIN 4 */
@@ -241,7 +250,7 @@ void OLED_Proc()
 
 	sprintf(String_Line, "A:%5.1f   B:%5.1f", Motor_Actual_Speeds[0], Motor_Actual_Speeds[1]);
 	Screen_ShowStringLine(0, String_Line, Font_Size);
-	sprintf(String_Line, "C:%5.1f   D:%5.1f", Motor_Actual_Speeds[2], Motor_Actual_Speeds[3]);
+	sprintf(String_Line, "C:%5.1f   D: %5.1f", Motor_Actual_Speeds[2], Motor_Actual_Speeds[3]);
 	Screen_ShowStringLine(1, String_Line, Font_Size);
 
 	sprintf(String_Line, "A:%5.1f   B:%5.1f", Motor_Expected_Speeds[0], Motor_Expected_Speeds[1]);
@@ -249,11 +258,16 @@ void OLED_Proc()
 	sprintf(String_Line, "C:%5.1f   D:%5.1f", Motor_Expected_Speeds[2], Motor_Expected_Speeds[3]);
 	Screen_ShowStringLine(4, String_Line, Font_Size);
 
-	UpdateInfraredData();
-	sprintf(String_Line, "     %c %c %c %c", Infrared_Datas[Infrared_Right] ? '#' : ' ', Infrared_Datas[Infrared_Center_Right] ? '#' : ' ', Infrared_Datas[Infrared_Center_Left] ? '#' : ' ', Infrared_Datas[Infrared_Left] ? '#' : ' ');
+	sprintf(String_Line, "Yaw:%5.1f", YawAngle);
 	Screen_ShowStringLine(6, String_Line, Font_Size);
 
-	sprintf(String_Line, "%.2f V    %.2f C    %d s", GetBatteryLevel(), GetInternalTemperature(), (int) uwTick / 1000);
+	UpdateInfraredData();
+	sprintf(String_Line, "     %c %c %c %c", Infrared_Datas[Infrared_Right] ? '#' : ' ', Infrared_Datas[Infrared_Center_Right] ? '#' : ' ', Infrared_Datas[Infrared_Center_Left] ? '#' : ' ', Infrared_Datas[Infrared_Left] ? '#' : ' ');
+	Screen_ShowStringLine(7, String_Line, Font_Size);
+
+	sprintf(String_Line, "CPU: %.2f C    MPU: %.2f C  ", GetInternalTemperature(), Get_MPU_Temperature());
+	Screen_ShowStringLine(13, String_Line, Font_Size_Small);
+	sprintf(String_Line, "%.2f V         %d s  ", GetBatteryLevel(), (int) uwTick / 1000);
 	Screen_ShowStringLine(14, String_Line, Font_Size_Small);
 
 }
@@ -373,7 +387,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 	else if (htim->Instance == TIM6)
 	{
-		//每0.1ms
+		//每1ms
 
 		//系统控制小车
 		Periodic_Status_Control();
@@ -387,7 +401,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			Clean_Dormancy_Count();
 		}
 	}
-
 	else if (htim->Instance == TIM7)
 	{
 		//每1s
@@ -395,11 +408,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		//休眠
 		Periodic_Dormancy_Counter();
 	}
-
-	if (htim->Instance == TIM8)
+	else if (htim->Instance == TIM11)
 	{
-		//接收上位机数据
-		ProcessReceivedData();
+		//20ms
+		//更新偏航角
+		UpdateYawAngle();
 	}
 }
 
@@ -421,18 +434,18 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 /* USER CODE END 4 */
 
 /**
- * @brief  This function is executed in case of error occurrence.
- * @retval None
- */
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
-	/* USER CODE BEGIN Error_Handler_Debug */
+  /* USER CODE BEGIN Error_Handler_Debug */
 	/* User can add his own implementation to report the HAL error return state */
 	__disable_irq();
 	while (1)
 	{
 	}
-	/* USER CODE END Error_Handler_Debug */
+  /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT

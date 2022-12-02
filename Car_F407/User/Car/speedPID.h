@@ -5,12 +5,12 @@
  *      Author: Little Fish
  */
 
-#ifndef CAR_SPEED_PID_H_
-#define CAR_SPEED_PID_H_
+#ifndef CAR_SPEEDPID_H_
+#define CAR_SPEEDPID_H_
 
 #include "common.h"
 
 void InitMotorPID();
 void CleanAllMotorPID();
 float UpdateMotorSpeedPID(Motor_Name motor, float speed, float actualSpeed);
-#endif /* CAR_SPEED_PID_H_ */
+#endif /* CAR_SPEEDPID_H_ */

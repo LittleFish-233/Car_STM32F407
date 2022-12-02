@@ -6,24 +6,24 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../User/Car/GMR_Encoder.c \
-../User/Car/Speed_PID.c \
 ../User/Car/TB6612.c \
-../User/Car/control.c \
-../User/Car/infrared.c 
+../User/Car/infrared.c \
+../User/Car/speedControl.c \
+../User/Car/speedPID.c 
 
 OBJS += \
 ./User/Car/GMR_Encoder.o \
-./User/Car/Speed_PID.o \
 ./User/Car/TB6612.o \
-./User/Car/control.o \
-./User/Car/infrared.o 
+./User/Car/infrared.o \
+./User/Car/speedControl.o \
+./User/Car/speedPID.o 
 
 C_DEPS += \
 ./User/Car/GMR_Encoder.d \
-./User/Car/Speed_PID.d \
 ./User/Car/TB6612.d \
-./User/Car/control.d \
-./User/Car/infrared.d 
+./User/Car/infrared.d \
+./User/Car/speedControl.d \
+./User/Car/speedPID.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -33,7 +33,7 @@ User/Car/%.o User/Car/%.su: ../User/Car/%.c User/Car/subdir.mk
 clean: clean-User-2f-Car
 
 clean-User-2f-Car:
-	-$(RM) ./User/Car/GMR_Encoder.d ./User/Car/GMR_Encoder.o ./User/Car/GMR_Encoder.su ./User/Car/Speed_PID.d ./User/Car/Speed_PID.o ./User/Car/Speed_PID.su ./User/Car/TB6612.d ./User/Car/TB6612.o ./User/Car/TB6612.su ./User/Car/control.d ./User/Car/control.o ./User/Car/control.su ./User/Car/infrared.d ./User/Car/infrared.o ./User/Car/infrared.su
+	-$(RM) ./User/Car/GMR_Encoder.d ./User/Car/GMR_Encoder.o ./User/Car/GMR_Encoder.su ./User/Car/TB6612.d ./User/Car/TB6612.o ./User/Car/TB6612.su ./User/Car/infrared.d ./User/Car/infrared.o ./User/Car/infrared.su ./User/Car/speedControl.d ./User/Car/speedControl.o ./User/Car/speedControl.su ./User/Car/speedPID.d ./User/Car/speedPID.o ./User/Car/speedPID.su
 
 .PHONY: clean-User-2f-Car
 

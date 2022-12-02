@@ -14,7 +14,8 @@
 
 //发送缓存
 extern char Printf_Buffer[2000];
+
 //重定义
 #define printfX(FORMAT,...) (sprintf(Printf_Buffer,FORMAT,##__VA_ARGS__),printf_Base(Printf_Buffer))
-
+#define printf printfX
 #endif /* BASICINFOR_DEBUG_H_ */

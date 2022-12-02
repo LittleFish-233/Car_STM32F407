@@ -140,6 +140,10 @@ void Error_Handler(void);
 #define W52QXX_MISO_GPIO_Port GPIOB
 #define W52QXX_MOSI_Pin GPIO_PIN_5
 #define W52QXX_MOSI_GPIO_Port GPIOB
+#define MPU_SCL_Pin GPIO_PIN_6
+#define MPU_SCL_GPIO_Port GPIOB
+#define MPU_SDA_Pin GPIO_PIN_7
+#define MPU_SDA_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 #define  u32 uint32_t
 #define  u16 uint16_t

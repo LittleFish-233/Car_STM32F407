@@ -16,28 +16,24 @@
 /**********************************************
  //IIC Start
  **********************************************/
-void IIC_Start()
+void IIC_OLED_Start()
 {
 
-	OLED_SCLK_Set();
-	OLED_SDIN_Set();
-	OLED_SDIN_Clr();
-	OLED_SCLK_Clr();
+	OLED_SCLK_Set();OLED_SDIN_Set();OLED_SDIN_Clr();OLED_SCLK_Clr();
 }
 
 /**********************************************
  //IIC Stop
  **********************************************/
-void IIC_Stop()
+void IIC_OLED_Stop()
 {
 	OLED_SCLK_Set();
 //	OLED_SCLK_Clr();
-	OLED_SDIN_Clr();
-	OLED_SDIN_Set();
+	OLED_SDIN_Clr();OLED_SDIN_Set();
 
 }
 
-void IIC_Wait_Ack()
+void IIC_OLED_Wait_Ack()
 {
 
 	//GPIOB->CRH &= 0XFFF0FFFF;	//设置PB12为上拉输入模式
@@ -56,8 +52,7 @@ void IIC_Wait_Ack()
 	 }
 	 }
 	 */
-	OLED_SCLK_Set();
-	OLED_SCLK_Clr();
+	OLED_SCLK_Set();OLED_SCLK_Clr();
 }
 /**********************************************
  // IIC Write byte
@@ -81,8 +76,7 @@ void Write_IIC_Byte(unsigned char IIC_Byte)
 		else
 			OLED_SDIN_Clr();
 		da = da << 1;
-		OLED_SCLK_Set();
-		OLED_SCLK_Clr();
+		OLED_SCLK_Set();OLED_SCLK_Clr();
 	}
 
 }
@@ -91,28 +85,28 @@ void Write_IIC_Byte(unsigned char IIC_Byte)
  **********************************************/
 void Write_IIC_Command(unsigned char IIC_Command)
 {
-	IIC_Start();
+	IIC_OLED_Start();
 	Write_IIC_Byte(0x78);            //Slave address,SA0=0
-	IIC_Wait_Ack();
+	IIC_OLED_Wait_Ack();
 	Write_IIC_Byte(0x00);			//write command
-	IIC_Wait_Ack();
+	IIC_OLED_Wait_Ack();
 	Write_IIC_Byte(IIC_Command);
-	IIC_Wait_Ack();
-	IIC_Stop();
+	IIC_OLED_Wait_Ack();
+	IIC_OLED_Stop();
 }
 /**********************************************
  // IIC Write Data
  **********************************************/
 void Write_IIC_Data(unsigned char IIC_Data)
 {
-	IIC_Start();
+	IIC_OLED_Start();
 	Write_IIC_Byte(0x78);			//D/C#=0; R/W#=0
-	IIC_Wait_Ack();
+	IIC_OLED_Wait_Ack();
 	Write_IIC_Byte(0x40);			//write data
-	IIC_Wait_Ack();
+	IIC_OLED_Wait_Ack();
 	Write_IIC_Byte(IIC_Data);
-	IIC_Wait_Ack();
-	IIC_Stop();
+	IIC_OLED_Wait_Ack();
+	IIC_OLED_Stop();
 }
 void OLED_WR_Byte(unsigned dat, unsigned cmd)
 {

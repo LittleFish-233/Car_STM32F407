@@ -5,9 +5,9 @@
  *      Author: Little Fish
  */
 
+#include <Car/speedControl.h>
 #include "statusControl.h"
 #include "Car/infrared.h"
-#include "Car/Control.h"
 #include "math.h"
 
 //typedef enum

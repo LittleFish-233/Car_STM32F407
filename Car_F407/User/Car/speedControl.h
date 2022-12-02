@@ -5,8 +5,8 @@
  *      Author: Little Fish
  */
 
-#ifndef CAR_CONTROL_H_
-#define CAR_CONTROL_H_
+#ifndef CAR_SPEEDCONTROL_H_
+#define CAR_SPEEDCONTROL_H_
 
 #include "common.h"
 #include "infrared.h"
@@ -43,4 +43,4 @@ void SetCarSpeed(float vx, float vy, float vz);
 uint8_t Is_Car_Runing();
 void SetAbnormalBehavior(Abnormal_Mode model, float x, float y, float z);
 
-#endif /* CAR_CONTROL_H_ */
+#endif /* CAR_SPEEDCONTROL_H_ */
