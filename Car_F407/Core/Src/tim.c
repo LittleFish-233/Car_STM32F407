@@ -359,7 +359,7 @@ void MX_TIM11_Init(void)
     htim11.Instance = TIM11;
     htim11.Init.Prescaler = 168-1;
     htim11.Init.CounterMode = TIM_COUNTERMODE_UP;
-    htim11.Init.Period = 20000;
+    htim11.Init.Period = 2000;
     htim11.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
     htim11.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
     if (HAL_TIM_Base_Init(&htim11) != HAL_OK)
@@ -464,7 +464,7 @@ void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef* tim_encoderHandle)
         HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
         /* TIM1 interrupt Init */
-        HAL_NVIC_SetPriority(TIM1_TRG_COM_TIM11_IRQn, 2, 0);
+        HAL_NVIC_SetPriority(TIM1_TRG_COM_TIM11_IRQn, 3, 0);
         HAL_NVIC_EnableIRQ(TIM1_TRG_COM_TIM11_IRQn);
     /* USER CODE BEGIN TIM1_MspInit 1 */
 
@@ -602,7 +602,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
         __HAL_RCC_TIM11_CLK_ENABLE();
 
         /* TIM11 interrupt Init */
-        HAL_NVIC_SetPriority(TIM1_TRG_COM_TIM11_IRQn, 2, 0);
+        HAL_NVIC_SetPriority(TIM1_TRG_COM_TIM11_IRQn, 3, 0);
         HAL_NVIC_EnableIRQ(TIM1_TRG_COM_TIM11_IRQn);
     /* USER CODE BEGIN TIM11_MspInit 1 */
 

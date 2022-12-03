@@ -1,6 +1,7 @@
-../User/BasicInfor/statusControl.c:45:6:Status_Control_Clear	8	static
-../User/BasicInfor/statusControl.c:55:6:Status_Control_Start	16	static
-../User/BasicInfor/statusControl.c:63:6:CorrectCarDirection	32	static
-../User/BasicInfor/statusControl.c:112:6:UpdateCommand	32	static
-../User/BasicInfor/statusControl.c:218:6:ApplyCommand	16	static
-../User/BasicInfor/statusControl.c:234:6:Periodic_Status_Control	8	static
+../User/BasicInfor/statusControl.c:49:6:Status_Control_Clear	8	static
+../User/BasicInfor/statusControl.c:59:6:Status_Control_Start	16	static
+../User/BasicInfor/statusControl.c:67:6:CorrectCarDirection	32	static
+../User/BasicInfor/statusControl.c:116:7:CalculateAnglesDiff	32	static
+../User/BasicInfor/statusControl.c:139:6:UpdateCommand	32	static
+../User/BasicInfor/statusControl.c:279:6:ApplyCommand	16	static
+../User/BasicInfor/statusControl.c:295:6:Periodic_Status_Control	8	static

@@ -9,6 +9,7 @@
 #include "statusControl.h"
 #include "Car/infrared.h"
 #include "math.h"
+#include "Balance/control.h"
 
 //typedef enum
 //{
@@ -41,6 +42,9 @@ Command_Mode Mode;
 
 //转弯步进
 #define StepLength 0.25
+
+//上一个偏航角
+float Yaw_Last;
 
 void Status_Control_Clear()
 {
@@ -109,6 +113,29 @@ void CorrectCarDirection(DriveState state)
 	AddCarSpeed(x, y, z);
 }
 
+float CalculateAnglesDiff(float last, float current)
+{
+	float max = -180;
+	float min = 180;
+
+	if (last > current)
+	{
+		max = last;
+		min = current;
+	}
+	else
+	{
+		max = current;
+		min = last;
+	}
+
+	float re1 = 180 - max + min + 180;
+	float re2 = fabs(Yaw_Last - YawAngle);
+
+	return re1 > re2 ? re2 : re1;
+
+}
+
 void UpdateCommand()
 {
 	//判断是否正在运行
@@ -127,27 +154,57 @@ void UpdateCommand()
 	//是否第一次结束指令持续作用
 	if (Command_Duration_Flag == 1)
 	{
-
+		//是否结束上一指令
+		uint8_t flag = 0;
 		switch (Commands[Command_Index].Type)
 		{
-			default:
-				if (RealState == DriveState_Normal)
+			case Command_Left:
+			case Command_Right:
+				if (CalculateAnglesDiff(Yaw_Last, YawAngle) > 85)
 				{
-					SetCarSpeed(Default_Speed, 0, 0);
+					flag = 1;
 				}
 				else
 				{
-					Command_Duration_Flag = 1;
-					//放弃这一回合
-					return;
+					flag = 0;
+				}
+				break;
+			case Command_Rotation:
+				if (CalculateAnglesDiff(Yaw_Last, YawAngle) > 170)
+				{
+					flag = 1;
+				}
+				else
+				{
+					flag = 0;
+				}
+				break;
+			default:
+				if (RealState == DriveState_Normal)
+				{
+					flag = 1;
+				}
+				else
+				{
 
+					flag = 0;
 				}
 				break;
 		}
+		if (flag == 1)
+		{
+			SetCarSpeed(Default_Speed, 0, 0);
+			Command_Duration_Flag = 0;
 
-		Command_Duration_Flag = 0;
+			AbnormaldState = DriveState_Normal;
 
-		AbnormaldState = DriveState_Normal;
+		}
+		else
+		{
+			Command_Duration_Flag = 1;
+			//放弃这一回合
+			return;
+		}
 
 	}
 
@@ -178,6 +235,7 @@ void UpdateCommand()
 		if (Mode == Command_Mode_OneTime)
 		{
 			Status_Control_Clear();
+
 			return;
 		}
 		else
@@ -210,6 +268,9 @@ void UpdateCommand()
 
 			break;
 	}
+
+	//记录偏航角
+	Yaw_Last = YawAngle;
 
 	//更新执行时间
 	Commands[Command_Index].RunCommand_Time = Last_RunCommand_Time = uwTick;

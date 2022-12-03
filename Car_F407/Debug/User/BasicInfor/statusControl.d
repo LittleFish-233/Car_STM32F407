@@ -39,7 +39,8 @@ User/BasicInfor/statusControl.o: ../User/BasicInfor/statusControl.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  G:/Code/Car_F407/Car_F407/User/Car/infrared.h \
  ../User/BasicInfor/statusControl.h \
- G:/Code/Car_F407/Car_F407/User/Car/infrared.h
+ G:/Code/Car_F407/Car_F407/User/Car/infrared.h \
+ G:/Code/Car_F407/Car_F407/User/Balance/control.h
 G:/Code/Car_F407/Car_F407/User/Car/speedControl.h:
 G:/Code/Car_F407/Car_F407/User/Car/common.h:
 ../Core/Inc/main.h:
@@ -82,3 +83,4 @@ G:/Code/Car_F407/Car_F407/User/Car/common.h:
 G:/Code/Car_F407/Car_F407/User/Car/infrared.h:
 ../User/BasicInfor/statusControl.h:
 G:/Code/Car_F407/Car_F407/User/Car/infrared.h:
+G:/Code/Car_F407/Car_F407/User/Balance/control.h:

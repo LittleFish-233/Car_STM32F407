@@ -30,7 +30,6 @@ mpu_state_t w_mpu_init(void)
 
 	//检查ID
 	device_id = w_mpu_read_device_address();
-	printf("device_id:    0x%x\r\n", device_id);
 	printf("设备ID:       0x%x\r\n", device_id);
 	printf("\r\n");
 	if (device_id == mpu_id_err)

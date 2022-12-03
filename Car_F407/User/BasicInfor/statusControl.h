@@ -11,7 +11,7 @@
 #include "main.h"
 
 #define Command_Number_Max 20
-#define Command_Turn_Duration 500
+#define Command_Turn_Duration 100 // 500
 #define Command_Rotation_Duration Command_Turn_Duration*2
 #define Command_CooldownTime 11
 #define Turn_Speed_Step 10

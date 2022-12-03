@@ -13,7 +13,7 @@
 #define NodeNumber 9+1
 #define NodeRelationshipNumber 12
 #define DirectionNumber 4
-#define RuningSpeed 15
+#define RuningSpeed 20
 
 //地图节点位置
 typedef struct
